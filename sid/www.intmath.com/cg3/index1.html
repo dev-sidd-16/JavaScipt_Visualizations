@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from www.intmath.com/cg3/sincos-d3.php by HTTrack Website Copier/3.x [XR&CO'2013], Sat, 01 Aug 2015 06:55:24 GMT -->
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0, maximum-scale=1.0" /> 
+<title>Trigonometry Graphs using D3</title>
+<style type="text/css">
+body{max-width:900px;font-family:Arial, Helvetica, sans-serif;font-size:0.95em}
+#probHeader{box-sizing:border-box;margin:0.5em auto 0.5em}
+.logo{background:#5b8a9b;margin:0 0 0.6em;padding:0.6em 0;color:#fff;overflow:hidden;width:100%;border-radius:0.5em}
+.logo ul{margin:0;padding:0 0.5em;list-style:none}
+.logo li{float:left}
+.logo .home{margin:0.3em 0.9em 0 0.2em}
+.logo .sqClogo{margin:0 0.9em 0 0}
+.logo .topSrch{float:right;margin:0.3em 0.2em 0 0}
+.logo a{color:#fff;text-decoration:none;}
+ul.bottRects{margin:2em 0 0;padding:0.3em;list-style-type:none}
+ul.bottRects li{display:inline-block;min-width:7em;border:1px solid #165a71;border-radius:0.3em;margin:0 0.5em 1em 0;text-align:center;position:relative;box-shadow:0.25em 0.25em 0.25em #ddd}
+ul.bottRects li.here{padding:0.5em 0;border-color:#ddd}
+ul.bottRects li a{text-decoration:none;padding:0.5em 0;display:block;background:#e9f3f5;border-radius:0.3em;}
+ul.bottRects li a span{right:2px;top:5px}
+</style> 
+<!--<script type="text/javascript">
+var _gaq = _gaq || [];
+var pluginUrl = '../../www.google-analytics.com/plugins/ga/inpage_linkid.js';
+_gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+_gaq.push(['_setAccount', 'UA-347284-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+ var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+// Quantcast:
+var _qevents=_qevents||[];(function(){var elem=document.createElement('script');elem.src=(document.location.protocol=="https:"?"https://secure":"http://edge")+".quantserve.com/quant.js";elem.async=true;elem.type="text/javascript";var scpt=document.getElementsByTagName('script')[0];scpt.parentNode.insertBefore(elem,scpt)})();
+</script>
+  -->
+<script src="../includes/cssjs/jquery-1.11.1.min.js"></script>    
+<style type="text/css">
+body{font-family:Arial, helvetica;max-width:720px;}
+.int{border:1px solid #5b8a9b;border-radius:0.4em;padding:0 0.5em 0.8em;
+-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none }
+.info{width:200px;font-size:0.9em;display:inline-block}
+.sincosint{position:relative;margin:0;overflow:hidden}
+.sincosint path,.sincosint circle{stroke:#165a71;stroke-width:2px;fill:none}
+.sincosint line{stroke:#999;stroke-width:1px;fill:none}
+.sincosint .axis{stroke:#999;stroke-width:0.5px}
+.sincosint .axis path{stroke-width:3px}
+.sincosint text{background:#444;font-family:serif}
+#graphHead0,#graphHead1{padding-bottom:0;margin-bottom:0}
+fieldset{border:none;padding:0}
+.myRect{fill:#fff}
+.sliderWrap{width:360px;padding:0 10px;text-align:center;display:inline-block;margin-left:50px}
+.stopGo{width:50px;height:30px;margin-top:2.5em}
+.copy{margin:0;padding:0;font-size:0.8em}
+.d3-slider{position:relative;font-family:Verdana,Arial,sans-serif;font-size:1.1em;border:1px solid #fff;z-index:2;background:#aaa;background:linear-gradient(to bottom,#fff 0%,#bbb 100%)}
+.d3-slider-horizontal{height:3px}
+.d3-slider-vertical{width:.8em;height:100px}
+.d3-slider-handle{position:absolute;width:1.2em;height:1.2em;border:1px solid #d3d3d3;border-radius:4px;background:#ddd;background:linear-gradient(to bottom,#fff 0%,#bbb 100%);z-index:3}
+.d3-slider-handle:hover{border:1px solid #999;cursor:move}
+.d3-slider-horizontal .d3-slider-handle{top:-.5em;margin-left:-.6em}
+.d3-slider-axis{position:relative;z-index:1;height:25px}
+.d3-slider-axis-bottom{top:.8em}
+.d3-slider-axis-right{left:.8em}
+.d3-slider-axis path{stroke-width:0;fill:none}
+.d3-slider-axis line{fill:none;stroke:#aaa;shape-rendering:crispEdges}
+.d3-slider-axis text{font-size:11px}
+.d3-slider-vertical .d3-slider-handle{left:-.25em;margin-left:0;margin-bottom:-.6em}
+</style>
+</head>
+<body>
+<div id="wrapper">
+
+
+<h2 id="sinCase">Sine case</h2>
+<div id="int0" class="int">	 
+	<div id="info0" class="info">
+		<p class="intmath"><i>t = &theta; = </i><span class="theta0">0</span></p>
+		<p class="intmath"><i>y =</i> <span class="amp0">80</span> sin(<span class="theta0">0</span>) <i>=</i> <span class="yVal0">0</span></p>
+	</div>
+	<div class="sliderWrap">	
+		<button id="stopGo0" class="stopGo">Start</button>
+	</div>
+	<div id="sinint"></div>
+	<p class="fr">Frame rate = <span id="fps0">0</span> fps</p>
+</div>
+<div id="jxgbox0" class="explanation"></div>
+	
+<script type="text/javascript" src="../../cdnjs.cloudflare.com/ajax/libs/d3/3.3.3/d3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="../includes/cssjs/d3.slider.js"></script>
+<script type="text/javascript">
+var scrWidth = $(window).width();
+if(scrWidth < 700) {
+	$("#int0").html("Sorry... This animation only works on larger devices (like tablets or laptops) with screen width more than 700 px.");
+	$("#int1").remove();
+	$("#sinCase").remove();
+	$("#cosCase").remove();
+} else {
+	var
+	X1="x1",X2="x2",Y1="y1",Y2="y2",
+	width=700,height=260,yAxisAt=2.0,
+	<!-- setting x-max, x-min, y-max, y-min for animation-->
+	xmin=-1.35,xmax=yAxisAt+2*Math.PI,ymin=height*(xmax-xmin)/width/2,ymax=-ymin,
+	<!-- d3 library linear scale call -->
+	xScale=d3.scale.linear(),yScale=d3.scale.linear(),
+	sine=d3.svg.line(),cosine=d3.svg.line(),
+	angleArcSine=d3.svg.line(),angleArcCosine=d3.svg.line(),
+	period=60,//seconds
+	xTo=0,i,yVal=0;
+	fps1jQ = $("#fps1"),fps0jQ = $("#fps0");
+	xScale
+	 .domain([xmin, xmax])
+	 .range([0, width]);
+	yScale
+	 .domain([ymin, ymax])
+	 .range([0, height]); 
+	angleArcSine
+	 .x(function (d, i) { return xScale(0.2*Math.cos(d)); })
+	 .y(function (d, i) { return yScale(0.2*Math.sin(d)); });
+	angleArcCosine
+	 .x(function (d, i) { return xScale(-0.2*Math.sin(d)); })
+	 .y(function (d, i) { return yScale(0.2*Math.cos(d)); }); 
+	// SINE CASE 
+	(function () {
+	var
+	data=[],
+	myTimer,
+	time=0,
+	value = 80,
+	radius=value/100,
+	vis=d3.select("#sinint").append("svg:svg"),
+	decor=vis.append("svg:g"),
+	graph=vis.append("svg:g"),
+	path=graph.append("svg:path"),
+	angle=graph.append("svg:path"),
+	horiz=graph.append("svg:line"),
+	adj=graph.append("svg:line"),
+	radline=graph.append("svg:line"),
+	opp=graph.append("svg:line"),
+	circle=graph.append("svg:circle"),
+	dot=graph.append("svg:circle"),
+	posYtick=graph.append("svg:text"),
+	negYtick=graph.append("svg:text"),
+	posGrid=graph.append("svg:line"),
+	negGrid=graph.append("svg:line"),
+	label0=graph.append("svg:text"),
+	labelpion2=graph.append("svg:text"),
+	labelpi=graph.append("svg:text"),
+	label3pion2=graph.append("svg:text"),
+	tickamp=graph.append("svg:line"),
+	tickampneg=graph.append("svg:line");
+	//
+	$("#radSize0").text(value);
+	//
+		sine
+		 .x(function (d, i) { return xScale(d+yAxisAt); })
+		 .y(function (d, i) { return yScale(radius*Math.random() ); });	
+	  vis
+		 .attr("class", "sincosint")
+		 .attr("width", width)
+		 .attr("height", height);
+	  decor.append("svg:line")
+		 .attr("class", "axis")
+		 .attr(X1, xScale(xmin))
+		 .attr(Y1, yScale(0))
+		 .attr(X2, xScale(xmax))
+		 .attr(Y2, yScale(0)); 
+	  //Circle y axis
+	  decor.append("svg:line")
+		 .attr("class", "axis")
+		 .attr(X1, xScale(0))
+		 .attr(Y1, yScale(-1.5))
+		 .attr(X2, xScale(0))
+		 .attr(Y2, yScale(1.5)); 
+	  // SineCos Graph
+	  negGrid
+		 .attr("class", "axis")
+		 .attr(X1, xScale(yAxisAt))
+		 .attr(Y1, yScale(-radius))
+		 .attr(X2, xScale(xmax))
+		 .attr(Y2, yScale(-radius));  
+	  negYtick
+		 .text(value) 
+		 .attr("x", Math.round(xScale(yAxisAt))-18)
+		 .attr("y", (yScale(radius)) + 5)
+		 .attr("text-anchor", "middle")
+	  posGrid
+		 .attr("class", "axis")
+		 .attr(X1, xScale(yAxisAt))
+		 .attr(Y1, yScale(radius))
+		 .attr(X2, xScale(xmax))
+		 .attr(Y2, yScale(radius));  
+	  posYtick
+		 .text(-value) 
+		 .attr("x", Math.round(xScale(yAxisAt))-18)
+		 .attr("y", (yScale(-radius)) + 5)
+		 .attr("text-anchor", "middle")	
+	  for(k=0;k<5;k++){	
+		 decor.append("svg:line")
+		 .attr("class", "axis")
+		 .attr(X1, xScale(yAxisAt+k*Math.PI/2))
+		 .attr(Y1, yScale(-1.2))
+		 .attr(X2, xScale(yAxisAt+k*Math.PI/2))
+		 .attr(Y2, yScale(1.2));	
+		
+	  }	 
+	  decor.append("svg:rect")
+		 .attr("class", "myRect")
+		 .attr("x", xScale(yAxisAt)-5)
+		 .attr("y", yScale(0)+7)
+		 .attr("width", xScale(6.28)+5)
+		 .attr("height", 25); 
+	  decor.append("svg:text")
+		 .text("0") 
+		 .attr("x", Math.round(xScale(yAxisAt)))
+		 .attr("y", (yScale(0)) + 24)
+		 .attr("text-anchor", "middle");	 
+	  decor.append("svg:text")
+		 .text(String.fromCharCode(960)+"/2")  //
+		 .attr("x", Math.round(xScale(yAxisAt+Math.PI/2)))
+		 .attr("y", (yScale(0)) + 24)
+		 .attr("text-anchor", "middle"); 	 
+	  decor.append("svg:text")
+		 .text(String.fromCharCode(960))  //
+		 .attr("x", Math.round(xScale(yAxisAt+Math.PI)))
+		 .attr("y", (yScale(0)) + 24)
+		 .attr("text-anchor", "middle"); 
+	  decor.append("svg:text")
+		 .text("3"+String.fromCharCode(960)+"/2")  //
+		 .attr("x", Math.round(xScale(yAxisAt+3*Math.PI/2)))
+		 .attr("y", (yScale(0)) + 24)
+		 .attr("text-anchor", "middle");
+	  decor.append("svg:text")
+		 .text("2"+String.fromCharCode(960))  //
+		 .attr("x", -10+Math.round(xScale(yAxisAt+2*Math.PI)))
+		 .attr("y", (yScale(0)) + 24)
+		 .attr("text-anchor", "middle");
+	  label0
+		 .attr("x", xScale(radius)+5)
+		 .attr("y", yScale(0)-5)
+		 .text("0"); 	
+	  labelpion2
+		 .attr("x", xScale(0)+5)
+		 .attr("y", yScale(radius)-5)
+		 .text(String.fromCharCode(960)+"/2"); 	 
+	  labelpi
+		 .attr("x", xScale(-radius)-10)
+		 .attr("y", yScale(0)-5)
+		 .text(String.fromCharCode(960)); 
+	  label3pion2
+		 .attr("x", xScale(0)+5)
+		 .attr("y", yScale(-radius)+15)
+		 .text("3"+String.fromCharCode(960)+"/2"); 
+		 circle
+		 .attr("cx", xScale(0))
+		 .attr("cy", yScale(0))
+		 .attr("r", radius*(xScale(1) - xScale(0)) );
+	  dot
+		 .attr("cx", xScale(radius))
+		.attr("cy", yScale(0))
+		 .attr("r", 4)
+		 .style("fill", "#fff");
+	  radline
+		 .attr(X1, xScale(0))
+		 .attr(Y1, yScale(0))
+		 .attr(X2, xScale(radius))
+		 .attr(Y2, yScale(0))
+		 .style("stroke", "#f49");
+	  opp
+		 .attr(X1, xScale(radius))
+		 .attr(Y1, yScale(0))
+		 .attr(X2, xScale(radius))
+		 .attr(Y2, yScale(0))
+		 .style("stroke", "#777");
+	  adj
+		 .attr(X1, xScale(0))
+		 .attr(Y1, yScale(0))
+		 .attr(X2, xScale(radius))
+		 .attr(Y2, yScale(0))
+		 .style("stroke", "#777");
+	var filterStrength = 20;
+	var frameTime = 100000, lastLoop = new Date, thisLoop;	 
+	function draw() {
+		 circle.attr("r", radius * (xScale(1) - xScale(0)));
+		 xTo = xScale(time + yAxisAt);
+		 data.push(time);	 
+		 yVal = (radius*Math.cos(time)).toFixed(2);
+		  var x = xScale(radius * Math.random()),
+				y = yScale(radius * Math.random());
+		  path.attr("d", sine(data));
+		  horiz.attr(X1, x).attr(Y1, y).attr(X2, xTo).attr(Y2, y);
+		  radline.attr(X2, x).attr(Y2, y);
+		  opp.attr(X1, x).attr(X2, x).attr(Y2, y);
+		  adj.attr(X2, x);
+		  angle.attr("d", angleArcSine(data));
+		  yVal = (radius*Math.sin(time)).toFixed(2);
+		  $(".theta0").html(time.toFixed(2));
+		  $(".amp0").html((100*radius).toFixed(0));
+		  $(".yVal0").html((100*yVal).toFixed(1));
+		 dot.attr("cx", x).attr("cy", y);
+		 if ($("#stopGo0").text() == "Stop") {
+			  time += 0.005;
+				if (time > 2 * Math.PI) {
+				time = 0;
+				data.length = 0;
+				}
+			  myTimer = setTimeout(draw, 50);
+		 }
+		var thisFrameTime = (thisLoop=new Date) - lastLoop;
+		frameTime+= (thisFrameTime - frameTime) / filterStrength;
+		lastLoop = thisLoop;	
+	} //draw();
+	setInterval(function(){
+		fps0jQ.text((1000/frameTime).toFixed(1));
+	},500);
+	$("#stopGo0").click(function() {
+		 if ($(this).text() == "Stop") {
+			  clearInterval(myTimer);
+			  $(this).text("Start");
+		 } else { 
+			  myTimer = setTimeout(draw, 50);
+			  $(this).text("Stop");
+		 }
+	});
+	d3.select("#slider0")
+		 .call(d3.slider().axis(true).value(80).min(18).max(120.001).step(1)
+		 .on("slide", function(evt, value) { 
+			 radius = value/100;
+			 $("#radSize0").text(value.toFixed(0));
+			 $("#graphHead0").html("Graph: <span class=\"intmath\"><i>y</i> = "+value.toFixed(0)+" sin(<i>t</i>)</span>" );
+			 if ($("#stopGo0").text() == "Start") {
+				  draw();
+			 }
+			 label0.attr("x", xScale(radius) + 5);
+			 labelpion2.attr("y", yScale(radius) - 5);
+			 labelpi.attr("x", xScale(-radius) - 10);
+			 label3pion2.attr("y", yScale(-radius) + 15);
+			 posGrid.attr(Y1, yScale(-radius)).attr(Y2, yScale(-radius));
+			 negYtick.attr("y", yScale(radius)+5);
+			 negYtick.text(value.toFixed(0));
+			 posYtick.text(-value.toFixed(0))		 
+			 posYtick.attr("y", (yScale(-radius))+5);
+			 negGrid.attr(Y1, yScale(radius)).attr(Y2, yScale(radius));
+			}	
+		));
+	})();
+
+
+	// COSINE CASE
+	(function () {
+	var
+	data=[],
+	myTimer,
+	time=0,
+	value = 80,
+	radius=value/100,
+	vis=d3.select("#cosint").append("svg:svg"),
+	decor=vis.append("svg:g"),
+	graph=vis.append("svg:g"),
+	path=graph.append("svg:path"),
+	angle=graph.append("svg:path"),
+	horiz=graph.append("svg:line"),
+	opp=graph.append("svg:line"),
+	adj=graph.append("svg:line"),
+	radline=graph.append("svg:line"),
+	circle=graph.append("svg:circle"),
+	dot=graph.append("svg:circle"),
+	posYtick=graph.append("svg:text"),
+	negYtick=graph.append("svg:text"),
+	posGrid=graph.append("svg:line"),
+	negGrid=graph.append("svg:line"),
+	label0=graph.append("svg:text"),
+	labelpion2=graph.append("svg:text"),
+	labelpi=graph.append("svg:text"),
+	label3pion2=graph.append("svg:text"),
+	tickamp=graph.append("svg:line"),
+	tickampneg=graph.append("svg:line");
+	//
+	$("#radSize1").text(value);
+	//
+	cosine
+	 .x(function (d, i) { return xScale(d+yAxisAt); })
+	 //.y(function (d, i) { return yScale(radius*Math.cos(d)); });	
+	 .y(function (d, i) { return yScale(radius*Math.cos(d)); });	
+	  vis
+		 .attr("class", "sincosint")
+		 .attr("width", width)
+		 .attr("height", height);
+	  decor.append("svg:line")
+		 .attr("class", "axis")
+		 .attr(X1, xScale(xmin))
+		 .attr(Y1, yScale(0))
+		 .attr(X2, xScale(xmax))
+		 .attr(Y2, yScale(0)); 
+	  decor.append("svg:line")
+		 .attr("class", "axis")
+		 .attr(X1, xScale(0))
+		 .attr(Y1, yScale(-1.5))
+		 .attr(X2, xScale(0))
+		 .attr(Y2, yScale(1.5)); 	
+	  negGrid
+		 .attr("class", "axis")
+		 .attr(X1, xScale(yAxisAt))
+		 .attr(Y1, yScale(-radius))
+		 .attr(X2, xScale(xmax))
+		 .attr(Y2, yScale(-radius));  
+	  negYtick
+		 .text(value) 
+		 .attr("x", Math.round(xScale(yAxisAt))-18)
+		 .attr("y", (yScale(radius)) + 5)
+		 .attr("text-anchor", "middle")
+	  posGrid
+		 .attr("class", "axis")
+		 .attr(X1, xScale(yAxisAt))
+		 .attr(Y1, yScale(radius))
+		 .attr(X2, xScale(xmax))
+		 .attr(Y2, yScale(radius));  
+	  posYtick
+		 .text(-value) 
+		 .attr("x", Math.round(xScale(yAxisAt))-18)
+		 .attr("y", (yScale(-radius)) + 5)
+		 .attr("text-anchor", "middle")
+	  for(k=0;k<5;k++){	
+		 decor.append("svg:line")
+		 .attr("class", "axis")
+		 .attr(X1, xScale(yAxisAt+k*Math.PI/2))
+		 .attr(Y1, yScale(-1.2))
+		 .attr(X2, xScale(yAxisAt+k*Math.PI/2))
+		 .attr(Y2, yScale(1.2));	
+		
+	 }		
+	  decor.append("svg:rect")
+		 .attr("class", "myRect")
+		 .attr("x", xScale(yAxisAt)-5)
+		 .attr("y", yScale(0)+7)
+		 .attr("width", xScale(6.28)+5)
+		 .attr("height", 25); 
+	  decor.append("svg:text")
+		 .text("0") 
+		 .attr("x", Math.round(xScale(yAxisAt)))
+		 .attr("y", (yScale(0)) + 24)
+		 .attr("text-anchor", "middle");	 
+	  decor.append("svg:text")
+		 .text(String.fromCharCode(960)+"/2")  //
+		 .attr("x", Math.round(xScale(yAxisAt+Math.PI/2)))
+		 .attr("y", (yScale(0)) + 24)
+		 .attr("text-anchor", "middle"); 	 
+	  decor.append("svg:text")
+		 .text(String.fromCharCode(960))  //
+		 .attr("x", Math.round(xScale(yAxisAt+Math.PI)))
+		 .attr("y", (yScale(0)) + 24)
+		 .attr("text-anchor", "middle"); 
+	  decor.append("svg:text")
+		 .text("3"+String.fromCharCode(960)+"/2")  //
+		 .attr("x", Math.round(xScale(yAxisAt+3*Math.PI/2)))
+		 .attr("y", (yScale(0)) + 24)
+		 .attr("text-anchor", "middle");
+	  decor.append("svg:text")
+		 .text("2"+String.fromCharCode(960))  //
+		 .attr("x", -10+Math.round(xScale(yAxisAt+2*Math.PI)))
+		 .attr("y", (yScale(0)) + 24)
+		 .attr("text-anchor", "middle");
+	  label0
+		 .attr("x", xScale(radius)+5)
+		 .attr("y", yScale(0)-5)
+		 .text("0"); 	
+	  labelpion2
+		 .attr("x", xScale(0)+5)
+		 .attr("y", yScale(radius)-5)
+		 .text(String.fromCharCode(960)+"/2"); 	 
+	  labelpi
+		 .attr("x", xScale(-radius)-10)
+		 .attr("y", yScale(0)-5)
+		 .text(String.fromCharCode(960)); 
+	  label3pion2
+		 .attr("x", xScale(0)+5)
+		 .attr("y", yScale(-radius)+15)
+		 .text("3"+String.fromCharCode(960)+"/2"); 
+	  circle
+		 .attr("cx", xScale(0))
+		 .attr("cy", yScale(0))
+		 .attr("r", radius*(xScale(1) - xScale(0)) );
+	  dot
+		 .attr("cx", xScale(0))
+		 .attr("cy", yScale(radius))
+		 .attr("r", 4)
+		 .style("fill", "#fff");
+	  radline
+		 .attr(X1, xScale(0))
+		 .attr(Y1, yScale(0))
+		 .attr(X2, xScale(0))
+		 .attr(Y2, yScale(radius))
+		 .style("stroke", "#f49");
+	  opp
+		 .attr(X1, xScale(0))
+		 .attr(Y1, yScale(radius))
+		 .attr(X2, xScale(0))
+		 .attr(Y2, yScale(radius))
+		 .style("stroke", "#777");
+	  adj
+		 .attr(X1, xScale(0))
+		 .attr(Y1, yScale(0))
+		 .attr(X2, xScale(0))
+		 .attr(Y2, yScale(radius))
+		 .style("stroke", "#777");
+	var filterStrength = 20;
+	var frameTime = 100000, lastLoop = new Date, thisLoop;	 
+	function draw() {
+		 circle.attr("r", radius * (xScale(1) - xScale(0)));
+		 xTo = xScale(time + yAxisAt);
+		 data.push(time);	 
+		 yVal = (radius*Math.cos(time)).toFixed(2);
+		  var x = xScale(-radius * Math.sin(time)),
+				y = yScale(radius * Math.cos(time));
+		  path.attr("d", cosine(data));
+		  horiz.attr(X1, x).attr(Y1, y).attr(X2, xTo).attr(Y2, y);
+		  radline.attr(X2, x).attr(Y2, y);
+		  opp.attr(X2, x).attr(Y1, y).attr(Y2, y);
+		  adj.attr(Y2,y);
+		  angle.attr("d", angleArcCosine(data));
+		  yVal = (radius*Math.cos(time)).toFixed(2);
+		  $(".theta1").html(time.toFixed(2));
+		  $(".amp1").html((100*radius).toFixed(0));
+		  $(".yVal1").html((100*yVal).toFixed(1));	  
+
+		 dot.attr("cx", x).attr("cy", y);
+		 if ($("#stopGo1").text() == "Stop") {
+			 time += 0.03333;
+			if (time > 2 * Math.PI) {
+				time = 0;
+				data.length = 0;
+			}
+			  myTimer = setTimeout(draw, 33);
+		 }
+		var thisFrameTime = (thisLoop=new Date) - lastLoop;
+		frameTime+= (thisFrameTime - frameTime) / filterStrength;
+		lastLoop = thisLoop;	
+	} //draw();
+	setInterval(function(){
+		fps1jQ.text((1000/frameTime).toFixed(1));
+	},500);
+	$("#stopGo1").click(function() {
+		 if ($(this).text() == "Stop") {
+			  clearInterval(myTimer);
+			  $(this).text("Start");
+		 } else { 
+			  frameTime = 0;
+			myTimer = setTimeout(draw, 33);
+			  $(this).text("Stop");
+		 }
+	});
+	d3.select("#slider1")
+		 .call(d3.slider().axis(true).value(80).min(18).max(120.001).step(1)
+		 .on("slide", function(evt, value) { 
+			 radius = value/100;
+			 $("#radSize1").text(value.toFixed(0));
+			 $("#graphHead1").html("Graph: <span class=\"intmath\"><i>y</i> = "+value.toFixed(0)+" cos(<i>t</i>)</span>" );
+			 if ($("#stopGo1").text() == "Start") {
+				  draw();
+			 }
+			 label0.attr("x", xScale(radius) + 5);
+			 labelpion2.attr("y", yScale(radius) - 5);
+			 labelpi.attr("x", xScale(-radius) - 10);
+			 label3pion2.attr("y", yScale(-radius) + 15);
+			 posGrid.attr(Y1, yScale(-radius)).attr(Y2, yScale(-radius));
+			 negYtick.attr("y", yScale(radius)+5);
+			 negYtick.text(value.toFixed(0));
+			 posYtick.text(-value.toFixed(0))
+			 
+			 posYtick.attr("y", (yScale(-radius))+5);
+			 negGrid.attr(Y1, yScale(radius)).attr(Y2, yScale(radius));
+			}	
+		));
+	})();
+}
+</script>
+
+    </div> <!-- wrapper -->
+  </body>
+</html>
