@@ -13,6 +13,8 @@ height: 75px;   /* We'll override this later */
 }
 </style>
 <script type="text/javascript" src="d3/d3.v3.js"></script>
+<script language="javascript" src="js/jquery-1.2.6.min.js"></script>
+<script language="javascript" src="js/jquery.timer-1.0.0.js"></script>
 </head>
 <body>
 <script type="text/javascript">
@@ -44,6 +46,10 @@ divs.style("background-color", function(d) {
                           return "green";
                     }
            });
+
+setInterval(function() {
+	    window.location.reload();
+	},1000);
 
 </script>
 </body>
