@@ -1,0 +1,83 @@
+#-*- mode: org -*-
+
+* 18-8-15
+
+** TODO
+   - Learn simple transitions in d3
+   - Using simple transitions, create some simple examples
+   - Finish traffic light animation
+   - Learn how to animate automatically with time
+
+<2015-08-16 Sun 23:52>
+** DONE
+   * First week log completed with org-mode and emacs
+   * Commiting first week logs to the repository
+   * Further logs to be synced with date time
+
+* 15-8-15 : Saturday
+** TODO
+   - Try simple transitions, auto refresh page, elements using d3
+   - Create the traffic light iterating animation
+   
+
+** DONE
+   + Auto reload page done
+   + Failed to create auto reload elements using json or ajax, need ot retry
+
+
+* 14-8-15 : Friday
+** TODO 
+   - Create svg objects using d3 library
+   - Learn about svg basics
+   - Create the traffic signal lights
+   - Move on to transition
+  
+
+** DONE
+   + Able to draw simple svgs in html
+   + Able to create svg element with d3 library
+   + Learnt to bind svgs to data
+   + Created a simple Traffic Light svg
+
+
+
+* 12-8-15 : Wednesday
+** TODO 
+   - Learn Javascript aniation basics
+   - Try making simple graphs using d3 library
+   
+
+** DONE 
+   + Made a new d3 project
+   + Created a basic bar graph
+   + Learnt how to use data with graphs
+
+
+* 11-8-15 : Tuesday 
+** Examples of iterative systems
+   1. Particle moving in 1-D
+   2. Particle moving in 2-D
+   3. Traffic Light iterating
+   4. seconds clock modulo counting n
+   5. Snow flake fractal
+   6. sine wave
+   7. compound interest graph
+      - Animations using statistical data
+   8. World popuation graph
+   9. Cell division, exponential growth
+   10. Logistic equation
+   11. Projectile motion
+       - Plot v vs t, y vs x, x vs t, y vs t etc..
+   
+
+** TODO
+
+   - Sine wave
+   - Traffic light
+   - Particle in motion 1-D, 2-D
+   
+
+** DONE 
+   + Understanding code for sine wave animation
+   + Changes made in sine wave code, to generate random data curve
+   + Discussed more examples pf representing traffic light systems
