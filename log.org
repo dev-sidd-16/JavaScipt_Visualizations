@@ -7,6 +7,14 @@
    - Using simple transitions, create some simple examples
    - Finish traffic light animation
    - Learn how to animate automatically with time
+   - Complete traffic light animation
+   - Draw a line graph with time
+   - 
+   
+
+** DONE
+   + Tried Traffic lights by adding redraw function with setInterval() function
+   + 
 
 <2015-08-16 Sun 23:52>
 ** DONE
