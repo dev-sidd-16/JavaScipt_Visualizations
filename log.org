@@ -14,7 +14,7 @@
 
 ** DONE
    + Tried Traffic lights by adding redraw function with setInterval() function
-   + 
+   + One version of traffic light   <2015-08-18 Tue 15:30>:
 
 <2015-08-16 Sun 23:52>
 ** DONE
