@@ -9,14 +9,13 @@
    + Traffic light version 2 with all three lights simultaneously going on or off,
      * The key was to select each circle seperately and applying transitions individually,
      * rather than trying to use transition simultaneously on two circles together <2015-08-19 Wed 15:54>
-
-
- 
-
+   + Simple Doughnut chart to vizualize traffic lights, used chart.js for the same
+     <2015-08-19 Wed>
      
 ** TODO
    - traffic light second version, try all three lights together as a state machine
    - a line graph with real data
+   - randomize time interval between trafic lights
      
 
 * 18-8-15

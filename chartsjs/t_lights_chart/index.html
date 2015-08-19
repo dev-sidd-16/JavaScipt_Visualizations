@@ -1,0 +1,36 @@
+<!Doctype HTML>
+<html>
+<head>
+<title>Doughnut Chart</title>
+<script src="js/Chart.min.js"></script>
+</head>
+<body>
+<canvas id="doughNutChartLoc" height="300" width="300"></canvas>
+<script>
+
+var red = Math.random() * 50;
+var orange = 10;
+var green = 90 - red;
+       var DoughNutChartData = [
+	        {
+	                value: red,
+	                color:"red"
+	               
+	        },
+	        {
+	                value: orange,
+	                color: "orange"
+	        },
+	        {
+	                value: green,
+	                color: "green"
+	        }
+            ]
+	var myDoughnut = new Chart(document.getElementById
+				   ("doughNutChartLoc").getContext("2d")).Doughnut
+	              			(DoughNutChartData, {
+							animationEasing : "linear"
+					    });
+</script>
+</body>
+</html>  
