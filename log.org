@@ -1,5 +1,17 @@
 #-*- mode: org -*-
 
+* 19-8-15  <2015-08-19 Wed 14:20>
+
+** DONE
+   + Visualization of traffic light, version one with one circle iterating red, orange, green light.
+   + Visualization of a line graph, automatically forming with time.
+   + Simple transitions, using d3
+     
+** TODO
+   - traffic light second version, try all three lights together as a state machine
+   - a line graph with real data
+     
+
 * 18-8-15
 
 ** TODO
@@ -21,6 +33,7 @@
    * First week log completed with org-mode and emacs
    * Commiting first week logs to the repository
    * Further logs to be synced with date time
+
 
 * 15-8-15 : Saturday
 ** TODO
