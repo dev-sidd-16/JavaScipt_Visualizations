@@ -6,6 +6,13 @@
    + Visualization of traffic light, version one with one circle iterating red, orange, green light.
    + Visualization of a line graph, automatically forming with time.
    + Simple transitions, using d3
+   + Traffic light version 2 with all three lights simultaneously going on or off,
+     * The key was to select each circle seperately and applying transitions individually,
+     * rather than trying to use transition simultaneously on two circles together <2015-08-19 Wed 15:54>
+
+
+ 
+
      
 ** TODO
    - traffic light second version, try all three lights together as a state machine

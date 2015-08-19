@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Traffic Lights</title>
+<style type="text/css">
+.red
+{
+   fill: red;
+   stroke: black;
+   stroke-width: 2;
+}
+.yellow
+{
+   fill: gray;
+   stroke: black;
+   stroke-width: 2;
+}
+.green
+{
+   fill: gray;
+   stroke: black;
+   stroke-width: 2;
+}
+</style>
+<script type="text/javascript" src="d3/d3.v3.js"></script>
+</head>
+
+<body>
+
+<script type="text/javascript">
+var w=1000; 
+var h=210;
+var svg = d3.select("body")
+             .append("svg")
+             .attr("width",w)
+             .attr("height",h);
+
+var dataset = ["red","yellow","green"];
+
+var circles = svg.selectAll("circle")
+                 .data(dataset)
+                 .enter()
+                 .append("circle");
+
+circles.attr("cx", w/2)
+       .attr("cy", function(d, i){
+                       return (i * 50) + 50 + (i * 5);
+                   })
+       .attr("r", 25)
+       .attr("class", function(d){
+			    return d;
+			    }); 
+
+setInterval(function() {
+	          redraw();
+	//	  redraw2();
+		  // call the function you created to update the chart
+		            }, 1000);
+
+var col = 0;
+function redraw() {
+          // Update…
+ var c1 = svg.selectAll("circle")
+	     .filter(".red");
+ var c2 = svg.selectAll("circle")
+	     .filter(".yellow");
+ var c3 = svg.selectAll("circle")
+             .filter(".green");
+
+ c1.transition().style("fill", function(d){
+					if(col == 0){
+					    return "gray";
+					}else if(col == 1){
+					    return "gray";
+					}else{
+					    return "red";
+					}
+
+					});
+	
+ c2.transition().style("fill", function(d){
+					if(col == 0){
+					    return "orange";
+					}else if(col == 1){
+					    return "gray";
+					}else{
+					    return "gray";
+					}
+					
+					});
+
+ c3.transition().style("fill", function(d){
+					if(col == 0){
+					    col = (col + 1)%3;
+					    return "gray";
+					}else if(col == 1){
+					    col = (col + 1)%3;
+					    return "green";
+					}else{
+					    col = (col + 1)%3;
+					    return "gray";
+					}
+
+					});
+}
+
+</script>
+</body>
+</html>     
