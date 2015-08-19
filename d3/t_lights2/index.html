@@ -45,18 +45,14 @@ var circles = svg.selectAll("circle")
 
 circles.attr("cx", w/2)
        .attr("cy", function(d, i){
-                       return (i * 50) + 50 + (i * 5);
-                   })
+                       return (i * 50) + 50 + (i * 5);})
        .attr("r", 25)
        .attr("class", function(d){
-			    return d;
-			    }); 
+			    return d;}); 
 
 setInterval(function() {
 	          redraw();
-	//	  redraw2();
-		  // call the function you created to update the chart
-		            }, 1000);
+	    }, 1000);
 
 var col = 0;
 function redraw() {
