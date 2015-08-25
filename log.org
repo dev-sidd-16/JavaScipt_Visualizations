@@ -4,7 +4,8 @@
 ** Completed auto reload of diughnut chart
 ** Next step to add time duration text
 ** Now moving on to creating another visualization of traffic signal graph
-*** Trying pulse graph 
+   + Trying pulse graph to create a repeating band of signals
+   + 
 * 19-8-15  <2015-08-19 Wed 14:20>
 
 ** DONE
