@@ -1,5 +1,10 @@
 #-*- mode: org -*-
 
+* 25-8-15 <2015-08-25 Tue>
+** Completed auto reload of diughnut chart
+** Next step to add time duration text
+** Now moving on to creating another visualization of traffic signal graph
+*** Trying pulse graph 
 * 19-8-15  <2015-08-19 Wed 14:20>
 
 ** DONE
