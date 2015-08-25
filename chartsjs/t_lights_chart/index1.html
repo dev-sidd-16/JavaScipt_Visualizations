@@ -1,0 +1,53 @@
+<!Doctype HTML>
+<html>
+<head>
+<title>Doughnut Chart</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+<script src="js/Chart.min.js"></script>
+</head>
+<body>
+<canvas id="doughNutChartLoc" height="300" width="300"></canvas>
+<script type="text/javascript" charset="utf-8">
+
+var chartUpdate = function(value){
+    console.log("Updating Chart: ", value);
+    var red = Math.random() * 50;
+    var orange = 10;
+    var green = 90 - red;
+   var DoughNutChartData = [
+	        {
+	                value: red,
+	                color:"red"
+	               
+	        },
+	        {
+	                value: orange,
+	                color: "orange"
+	        },
+	        {
+	                value: green,
+	                color: "green"
+	        }
+            ]
+
+    $('#doughNutChartLoc').replaceWith('<canvas id="doughNutChartLoc" width="300" height="300"></canvas>');
+    var ctx = document.getElementById("doughNutChartLoc").getContext("2d")
+    new Chart(ctx).Doughnut(DoughNutChartData, {
+							animationEasing : false
+							});
+
+
+    setTimeout(function() {
+	    chartUpdate(value - 1)
+	    }, 5000);
+}
+
+$(document).ready(function() {
+	setTimeout(function() {
+	    chartUpdate(99);
+	    }, 5000);
+	})
+
+</script>
+</body>
+</html>  
