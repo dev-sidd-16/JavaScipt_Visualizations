@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Logistic Equation</title>
+<style type="text/css">
+path 
+{
+        stroke: steelblue;
+        stroke-width: 2;
+        fill: none;
+}
+ 
+line 
+{
+	fill: none;
+        stroke: black;
+	shape-rendering: crispEdges;
+}
+ 
+text 
+{
+        font-family: Arial;
+        font-size: 9pt;
+}
+
+</style>
+<script type="text/javascript" src="d3/d3.v3.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+var data = [],
+    n = 100,
+    a = 0.1,
+    w = 400,
+    h = 200,
+    margin = 20;
+for (var k = -n; k < n; k++) {
+    data.push((1/(1+Math.exp(-a*k))));
+}
+var y = d3.scale.linear().domain([0, d3.max(data)]).range([0 + margin, h - margin]),
+    x = d3.scale.linear().domain([-n, data.length-n]).range([0 + margin, w - margin]);
+
+var giveMeEmpty = d3.svg.line()
+      .x(margin)
+      .y(margin);
+
+
+var vis = d3.select("body")
+    .append("svg:svg")
+    .attr("width", w)
+    .attr("height", h);
+	     
+var g = vis.append("svg:g")
+           .attr("transform", "translate(0, 200)");
+
+var line = d3.svg.line()
+        .x(function(d,i) { return x(i)-(2*n)+margin; })
+	.y(function(d) { return -1 * y(d); });
+
+function getSmoothInterpolation(data) {
+      return function (d, i, a) {
+      var interpolate = d3.scale.linear()
+	                 .domain([0,1])
+	                 .range([1, data.length + 1]);
+          return function(t) {
+	        var flooredX = Math.floor(interpolate(t));
+	        var weight = interpolate(t) - flooredX;
+		var interpolatedLine = data.slice(0, flooredX);
+					              
+		if(flooredX > 0 && flooredX < 31) {
+                        var weightedLineAverage = data[flooredX].y * weight + data[flooredX-1].y * (1-weight);
+	                interpolatedLine.push({"x":interpolate(t)-1, "y":weightedLineAverage});
+	        }
+							        
+		return line(interpolatedLine);
+	    }
+    }
+}
+
+
+g.append("svg:path")
+	.attr("d", giveMeEmpty(data))
+	.transition()
+	.duration(5000)
+	.attrTween("d", getSmoothInterpolation(data));
+
+g.append("svg:line")
+    .attr("x1", x(-n-margin))
+    .attr("y1", -1 * y(0))
+    .attr("x2", x(n+w+margin))
+    .attr("y2", -1 * y(0));
+		 
+g.append("svg:line")
+    .attr("x1", x(0))
+    .attr("y1", -1 * y(0))
+    .attr("x2", x(0))
+    .attr("y2", -1 * y(d3.max(data)));
+
+g.selectAll(".xLabel")
+    .data(x.ticks(10))
+    .enter().append("svg:text")
+    .attr("class", "xLabel")
+    .text(String)
+    .attr("x", function(d) { return x(d) })
+    .attr("y", 0)
+    .attr("text-anchor", "middle");
+		 
+g.selectAll(".yLabel")
+    .data(y.ticks(10))
+    .enter().append("svg:text")
+    .attr("class", "yLabel")
+    .text(String)
+    .attr("x", 2*n)
+    .attr("y", function(d) { return -1 * y(d) })
+    .attr("text-anchor", "right")
+    .attr("dy", 5);
+
+
+</script>
+</body>
+</hml>     
