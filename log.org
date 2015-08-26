@@ -1,5 +1,10 @@
 #-*- mode: org -*-
 
+* 26-8-15 <2015-08-26 Wed 15:03>
+
+** DONE
+
+   - Exponnential graph animation
 * 25-8-15 <2015-08-25 Tue>
 ** Completed auto reload of diughnut chart
 ** Next step to add time duration text
