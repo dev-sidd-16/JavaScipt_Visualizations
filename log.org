@@ -4,12 +4,13 @@
 
 ** DONE
 
+   - Created structure for plotting 1D motion
    - Logistic equation graph
    - Exponential graph animation
 
 
-   
 ** TODO 
+*** Complete the 1D motion plot and move on to 2D motion projectiles
 *** Update Colored Bars for individual bar elements
 *** Examples of iterative systems
     1. Particle moving in 1-D
