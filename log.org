@@ -10,21 +10,23 @@
 
    
 ** TODO 
-** Examples of iterative systems
-   1. Particle moving in 1-D
-   2. Particle moving in 2-D
-   3. Traffic Light iterating
-   4. seconds clock modulo counting n
-   5. Snow flake fractal
-   6. sine wave
-   7. compound interest graph
-      - Animations using statistical data
-   8. World popuation graph
-   9. Cell division, exponential growth
-   10. Logistic equation
-   11. Projectile motion
-       - Plot v vs t, y vs x, x vs t, y vs t etc..
-   
+*** Update Colored Bars for individual bar elements
+*** Examples of iterative systems
+    1. Particle moving in 1-D
+    2. Particle moving in 2-D
+    3. Traffic Light iterating
+    4. seconds clock modulo counting n
+    5. Snow flake fractal
+    6. sine wave
+    7. compound interest graph
+       - Animations using statistical data
+    8. World popuation graph
+    9. Cell division, exponential growth
+    10. Logistic equation
+    11. Projectile motion
+       	- Plot v vs t, y vs x, x vs t, y vs t etc..
+	 
+	  
 
 * 25-8-15 <2015-08-25 Tue>
 ** Completed auto reload of diughnut chart
