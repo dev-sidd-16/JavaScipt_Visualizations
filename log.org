@@ -9,8 +9,6 @@
 
 
    
-** 
-
 ** TODO 
 ** Examples of iterative systems
    1. Particle moving in 1-D

@@ -29,14 +29,15 @@ var chartUpdate = function(value){
 	                color: "green"
 	        }
             ]
-
-    $('#doughNutChartLoc').replaceWith('<canvas id="doughNutChartLoc" width="300" height="300"></canvas>');
+    //$('#doughNutChartLoc').replaceWith('<canvas id="doughNutChartLoc" width="300" height="300"></canvas>');
     var ctx = document.getElementById("doughNutChartLoc").getContext("2d")
     new Chart(ctx).Doughnut(DoughNutChartData, {
 							animationEasing : false
 							});
 
-
+    //$('#doughNutChartLoc').remove(); // this is my <canvas> element
+    $('body').append('<canvas id="doughNutChartLoc" width="300" height="300"></canvas>');
+    
     setTimeout(function() {
 	    chartUpdate(value - 1)
 	    }, 5000);
