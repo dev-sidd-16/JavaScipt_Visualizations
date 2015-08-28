@@ -8,13 +8,12 @@
 .box {
 fill: #f44;
 stroke: black;
-stroke-width: 2px;
 }
 
 path
 {
 stroke: steelblue;
-stroke-width: 2px;
+stroke-width: 2;
 fill: none;
 }
 
@@ -34,9 +33,6 @@ font-size: 9pt;
 <body>
 <script type="text/javascript">
 {
-
-    var timeInterval = 50;
-    //Drawing The object
     var w = 1000,
 	h = 400;
     var svg = d3.select("body")
@@ -46,38 +42,23 @@ font-size: 9pt;
 	.style("background-color","#66f");
 
     var dataset = [];
-    var radi = h/10;
-    var x1 = 100, y1 = h/2-radi;
+    var x1 = 100, y1 = h/2;
     var x2 = 10, y2 = 5;
-    var diag = svg.append("svg")
-		  .attr("width" , w/2)
-		  .attr("height", h/2)
-		  .attr("y", h/4);
-	
-	
-    var circles = diag.append("circle");
+    var radi = h/25;
+    var circles = svg.append("circle");
 
     circles.attr("cx", function(d,i){
-		return 100 ;	
-	    })
+	    return 100 ;	})
 	.attr("cy", y1)
 	.attr("r", radi)
 	.attr("class", function(d,i){
 		return "box";
 		}) ;
 
-    //Drawing the plot
-    var vis = svg.append("svg")
-		 .attr("width", w/2)
-		 .attr("height", h/2)
-		 .attr("x", w/2)
-		 .attr("y", h/4);
 
-    
-    //Updating the objects y attribute to animate with time
     setInterval(function(){
 	    update();
-	    }, timeInterval);
+	    }, 100);
 
     var temp = y1;
     function update(){
@@ -85,16 +66,19 @@ font-size: 9pt;
 	svg.selectAll("circle")
 	    .transition()
 	    .attr("cy", function(){
-		    if(temp >= radi)
+		    if(temp >= h/4)
 		    {
-		        return temp--;
+		    return temp--;
 		    }
 		    else{
-			        return temp = y1;
+		    return temp = y1;
 		    }
-	 });
+		    });
     }
+
+
 }
+
 
 </script>
 </body>
