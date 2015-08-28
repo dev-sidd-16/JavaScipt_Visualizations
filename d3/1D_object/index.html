@@ -5,54 +5,75 @@
 <title>D3 Test</title>
 <script type="text/javascript" src="d3/d3.v3.js"></script>
 <style>
-svg .box {
-fill: #fca;
-border: 2px black;
+.box {
+fill: #f44;
+stroke: black;
 }
+
+path
+{
+stroke: steelblue;
+stroke-width: 2;
+fill: none;
+}
+
+line
+{
+stroke: black;
+}
+
+text
+{
+font-family: Arial;
+font-size: 9pt;
+}
+
 </style>
 </head>
 <body>
 <script type="text/javascript">
-var w = 1000,
-    h = 400;
-var svg = d3.select("body")
-	    .append("svg")
-	    .attr("width",w)
-	    .attr("height",h)
-	    .style("background-color","#aaa");
-
-var dataset = [];
-for(var i = 0; i<10 ; i++)
 {
-    dataset.push(300-(i*30));
-}
+    var w = 1000,
+	h = 400;
+    var svg = d3.select("body")
+	.append("svg")
+	.attr("width",w)
+	.attr("height",h)
+	.style("background-color","#66f");
 
-var x1 = 100, y1 = h/2;
-var x2 = w/10, y2 = h/5;
-var rectangle = svg.selectAll("rect")
-		    .data(dataset)
-		    .enter()
-		    .append("rect");
+    var dataset = [];
+    var x1 = 100, y1 = h/2;
+    var x2 = 10, y2 = 5;
+    var radi = h/25;
+    var circles = svg.append("circle");
 
-rectangle.attr("x", function(d,i){
-			return 100 ;	})
-	 .attr("y", function(d,i){
-			return d; })
-	 .attr("width",x2)
-	 .attr("height",y2)
-	 .attr("class", function(d,i){
-			    return "box";
-			}) ;
- 
-
-setTimeInterval(function(){
-	update();
-	}, 1000);
+    circles.attr("cx", function(d,i){
+	    return 100 ;	})
+	.attr("cy", y1)
+	.attr("r", radi)
+	.attr("class", function(d,i){
+		return "box";
+		}) ;
 
 
-function update(){
-   if(y1 != 0){
-	y1 = y1-5;
+    setInterval(function(){
+	    update();
+	    }, 100);
+
+    var temp = y1;
+    function update(){
+
+	svg.selectAll("circle")
+	    .transition()
+	    .attr("cy", function(){
+		    if(temp >= h/4)
+		    {
+		    return temp--;
+		    }
+		    else{
+		    return temp = y1;
+		    }
+		    });
     }
 
 
