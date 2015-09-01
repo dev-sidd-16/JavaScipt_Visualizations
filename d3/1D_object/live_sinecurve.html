@@ -87,43 +87,13 @@ decor.append('svg:line')
      .attr(Y1, yScale(ymin))
      .attr(X2, xScale(0))
      .attr(Y2, yScale(ymax));
-/*
-// Time
-label.attr("x", 2)
-     .attr("y", 24);
 
-// Circle
-circle.attr('cx', xScale(0))
-      .attr('cy', yScale(0))
-      .attr('r', xScale(1) - xScale(0));
-
-// Dot
-dot.attr('cx', xScale(0))
-   .attr('r', 4)
-   .style('fill', '#fff');
-*/
-// Triangle
-/*c.attr(X1, xScale(0))
- .attr(Y1, yScale(0));
-*/
 function draw() {
 
 	var   x = xScale(Math.cos(time)),
 	      y = yScale(-Math.sin(time));
 
 	path.attr('d', sine(data));
-
-//	label.text('t = '+ Math.floor(time / Math.PI));
-
-	/*c.attr(X2, x)
-	 .attr(Y2, y);
-
-	b.attr(X1, xScale(0))
-	 .attr(Y1, y)
-	 .attr(X2, x)
-	 .attr(Y2, y);
-*/
-//	dot.attr('cy', y);
 	time += .015;
 
 	setTimeout(draw, 35);
