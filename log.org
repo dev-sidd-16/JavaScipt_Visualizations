@@ -1,5 +1,11 @@
 #-*- mode: org -*-
 
+* 01-9-15 <2015-09-01 Tue 14:48>
+
+** TODO 
+   + To add data of motion of the ball to an array
+   + Use the data to plot the graph using tween
+   + 
 * 28-8-15 <2015-08-28 Fri 17:40>
 
 ** DONE
