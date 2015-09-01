@@ -5,14 +5,18 @@
 ** TODO 
    + To add data of motion of the ball to an array
    + Use the data to plot the graph using tween
-   + 
+    
    
 
 ** DONE
 
    - Created a live upadting graph
    - attaching the same concept to our 1D motion
-   - 
+   - The above concept implemented with the help of a new sine curve example, added
+   - The graph shows mapping of y with time, but has issues, shows line segment, need to make it a plot.
+
+<2015-09-01 Tue 18:23>
+
 * 28-8-15 <2015-08-28 Fri 17:40>
 
 ** DONE
