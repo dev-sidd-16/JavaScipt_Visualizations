@@ -1,5 +1,11 @@
 #-*- mode: org -*-
 
+* 02-9-15 <2015-09-02 Wed 14:46>
+
+** TODO
+
+   + Map the path of graph properly
+   + Possible issues may include time mapping to x-axis, looking into it
 * 01-9-15 <2015-09-01 Tue 14:48>
 
 ** TODO 
