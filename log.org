@@ -7,6 +7,14 @@
    + Map the path of graph properly
    + Possible issues may include time mapping to x-axis, looking into it
    + printing messages to check the values
+   
+   
+
+** DONE
+   - Completed the path trace for 1D motion
+   - Next step to add objects, make it real and trace path according to mathematical equations.
+
+<2015-09-02 Wed 18:08>
 * 01-9-15 <2015-09-01 Tue 14:48>
 
 ** TODO 
