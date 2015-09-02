@@ -90,11 +90,11 @@ font-size: 9pt;
 
 
 /*    curve.x(function (d,i) {return xScale(i)+time;})
-	 .y(function (d,i) {return yScale(0+temp);});
+	 .y(function (d,i) {return yScale(temp);});
   */ 
-    curve.x(0)
+    /*curve.x(0)
 	 .y(0);
-
+*/
     // X-Axis
     decor.append('svg:line')
          .attr('class', 'axis')
@@ -134,14 +134,20 @@ function update(){
 	      y = yScale(temp);
 */
 	if(temp >= radi)
+	{
 	    temp -= 1;
+	}
 	else
+	{
 	    temp = y1;
+	    //dataset=[];
+	}
 	
 	dataset.push(temp);
-	time = (time+1)%timeInterval;
-	curve.x(function (d,i) {return (i+time);})
-	 .y(function (d,i) {return yScale(d-temp);});
+	time = (time+1)%(w/4);
+	//time++;
+	curve.x(function (d,i) {return (i);})
+	 .y(function (d,i) {return h/2-(yScale(d-temp));});
 
 	path.transition()
 	    .attr('d', curve(dataset));
