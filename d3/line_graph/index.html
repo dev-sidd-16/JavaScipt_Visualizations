@@ -71,6 +71,19 @@ function getSmoothInterpolation(data) {
     }
 }
 
+function getInterpolation() {
+      
+      var interpolate = d3.scale.quantile()
+			        .domain([0,1])
+			        .range(d3.range(1, indexSeries.length + 1));
+
+      return function(t) {
+	          var interpolatedLine = indexSeries.slice(0, interpolate(t));
+		  return line(interpolatedLine);
+		}
+}
+
+
 
 g.append("svg:path")
 	.attr("d", giveMeEmpty(data))
@@ -78,10 +91,16 @@ g.append("svg:path")
 	.duration(3000)
 	.attrTween("d", getSmoothInterpolation(data));
 
-/*g.append("svg:path")
+/*
+g.append("svg:path")
       .transition()
-      .duration(3000)
-      .attrTween('d', getSmoothInterpolation);
+      .attr('d', line(data));
+*/
+/*
+g.append("svg:path")
+	.transition()
+	.duration(3000)
+	.attrTween('d', getInterpolation);
 
 */
 g.append("svg:line")

@@ -36,7 +36,6 @@ font-size: 9pt;
 <script type="text/javascript">
 {
 
-    var timeInterval = 50;
     //Drawing The object
     var w = 1000,
 	h = 400;
@@ -54,10 +53,8 @@ font-size: 9pt;
 		  .attr("width" , w/2)
 		  .attr("height", h/2)
 		  .attr("y", h/4);
-    for (i = 0; i < 84; i++) {
-	    dataset.push(i*10/84);
-	        }
-	
+    
+    var timeInterval = y1-radi;
     var circles = diag.append("circle");
 
     circles.attr("cx", x1)
@@ -82,56 +79,80 @@ font-size: 9pt;
 	i;
 
     var temp = y1;
-
+    dataset.push(temp);
+	
     var xScale = d3.scale.linear()
 			.domain([0,timeInterval])
-			.range([0,w/4]);
+			.range([0,(w/4)]);
     var yScale = d3.scale.linear()
-			.domain([radi, h/2-radi])
+			.domain([0, h/2-(2*radi)])
 			.range([0, h/2]);
 
 
-    curve.x(function (d,i) {return xScale(d);})
-	 .y(function (d,i) {return yScale(radi) + temp;});
+    curve.x(function (d,i) {return xScale(0)+time;})
+	 .y(function (d,i) {return yScale(0)-temp;});
 
     // X-Axis
     decor.append('svg:line')
          .attr('class', 'axis')
          .attr('x1', xScale(0))
-         .attr('y1', yScale(h/2-radi))
+         .attr('y1', yScale(h/2-(2*radi)))
          .attr('x2', xScale(timeInterval))
-         .attr('y2', yScale(h/2-radi));
+         .attr('y2', yScale(h/2-(2*radi)));
     // Y-Axis
     decor.append('svg:line')
          .attr('class', 'axis')
          .attr('x1', xScale(0))
-         .attr('y1', yScale(radi))
+         .attr('y1', yScale(0))
          .attr('x2', xScale(0))
-         .attr('y2', yScale(h/2-radi));
+         .attr('y2', yScale(h/2-(2*radi)));
 
+
+    decor.append("svg:text")
+	 .attr('class','y-val')
+         .text('y-value :'+temp)
+         .attr("x", w/4)
+         .attr("y", h/4)
+         .attr("text-anchor", "middle");
+
+   decor.append("svg:text")
+	 .attr('class','x-val')
+         .text('x-value :'+time)
+         .attr("x", w/4)
+         .attr("y", h/4-20)
+         .attr("text-anchor", "middle");
 
 
 	
 function update(){
 	
     
-	var   x = xScale(time),
+/*	var   x = xScale(time),
 	      y = yScale(temp);
-
+*/
+	if(temp >= radi)
+	    temp -= 1;
+	else
+	    temp = y1;
+	
+	dataset.push(temp);
 	time = (time+1)%timeInterval;
 	path.attr('d', curve(dataset));
+
+	decor.selectAll("text").filter('.y-val')
+	     .transition()
+	     .text('y-value :'+temp);
+
+	decor.selectAll("text").filter('.x-val')
+	     .transition()
+	     .text('x-value :'+time);
+
 
 	svg.selectAll("circle")
 	    .transition()
 	    .attr("cy", function(){
-		    if(temp >= radi)
-		    {
-		        return temp--;
-		    }
-		    else{
-		    	         return temp = y1;
-		    }
-	 });
+		        return temp;
+		});
 
 	 
     }
