@@ -89,8 +89,11 @@ font-size: 9pt;
 			.range([0, h/2]);
 
 
-    curve.x(function (d,i) {return xScale(0)+time;})
-	 .y(function (d,i) {return yScale(0)-temp;});
+/*    curve.x(function (d,i) {return xScale(i)+time;})
+	 .y(function (d,i) {return yScale(0+temp);});
+  */ 
+    curve.x(0)
+	 .y(0);
 
     // X-Axis
     decor.append('svg:line')
@@ -137,7 +140,11 @@ function update(){
 	
 	dataset.push(temp);
 	time = (time+1)%timeInterval;
-	path.attr('d', curve(dataset));
+	curve.x(function (d,i) {return (i+time);})
+	 .y(function (d,i) {return yScale(d-temp);});
+
+	path.transition()
+	    .attr('d', curve(dataset));
 
 	decor.selectAll("text").filter('.y-val')
 	     .transition()
