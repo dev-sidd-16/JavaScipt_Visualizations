@@ -1,5 +1,12 @@
 #-*- mode: org -*-
 
+* 11-9-15 <2015-09-11 Fri>
+
+* TODO
+
+  - Review the work till now
+  - Look on where you stand
+  - Discuss further plan in a meeting with Prof.
 * 02-9-15 <2015-09-02 Wed 14:46>
   
 ** TODO
