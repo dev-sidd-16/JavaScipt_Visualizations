@@ -1,5 +1,19 @@
 #-*- mode: org -*-
 
+* 16-9-15 <2015-09-16 Wed 15:54>
+** DONE
+   - Meeting with Venkatesh sir
+   - Summarising the meeting and things discussed
+   - Mailed sir the Bitbucket account ID <2015-09-16 Wed 15:59>
+   - Course structure
+   - Book Idea
+   - Modeling + Programming
+   - Factorial example
+   - Function as a iterative system
+   - Invariants
+   - More example of the same system
+
+* 15-9-15
 * 11-9-15 <2015-09-11 Fri>
 
 * TODO

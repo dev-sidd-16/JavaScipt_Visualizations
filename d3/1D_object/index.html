@@ -49,12 +49,14 @@ font-size: 9pt;
     var radi = h/10;
     var x1 = 100, y1 = h/2-radi;
     var x2 = 10, y2 = 5;
+    var motion = 1; // 1: up, 2: down
     var diag = svg.append("svg")
 		  .attr("width" , w/2)
 		  .attr("height", h/2)
 		  .attr("y", h/4);
     
-    var timeInterval = y1-radi;
+    var timeInterval = 150;
+    //var timeInterval = y1-radi;
     var circles = diag.append("circle");
 
     circles.attr("cx", x1)
@@ -146,16 +148,25 @@ function update(){
 /*	var   x = xScale(time),
 	      y = yScale(temp);
 */
-	if(temp >= radi)
+	if(temp >= radi && motion == 1)
 	{
-	    temp -= 1;
+	    temp -= 2;
 	}
 	else
 	{
-	    temp = y1;
-	    dataset=[];
+	    motion = 0;
 	    iter++;
 	}
+
+	if(temp <= y1 && motion == 0)
+	{
+	    temp += 2;
+	}
+	else
+	{
+	    motion = 1;
+	    iter++;
+	}	
 
 
 	dataset.push(temp);
