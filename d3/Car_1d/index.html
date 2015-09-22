@@ -57,7 +57,9 @@ font-size: 9pt;
     
     var timeInterval = 150;
     //var timeInterval = y1-radi;
-    var circles = diag.append("circle");
+    //var circles = diag.append("circle");
+    var circles = diag.append("svg:image")
+	.attr("xlink:href","img/large_car.png");
 
     circles.attr("cx", x1)
 	.attr("cy", y1)
