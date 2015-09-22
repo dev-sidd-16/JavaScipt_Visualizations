@@ -6,7 +6,17 @@
 ** Read about API design
 ** Design the basics in rough to start
 *** Includes layout, structure, material to include and a list of things required to build it
-** 
+** Make framework for car 1D motion
+
+* DONE
+
+** Car framework made
+
+** To do, animate the car and make the graph by Wednesday
+
+** Abstract the data, and make a form like interfeace to input the data next.
+
+<2015-09-22 Tue 17:36>
 * 18-9-15
 * 16-9-15 <2015-09-16 Wed 15:54>
 ** DONE
