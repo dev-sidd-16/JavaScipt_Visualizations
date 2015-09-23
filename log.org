@@ -5,6 +5,11 @@
 ** TODO 
    - Animate the car movement
    - Plot the graph, initially x vs t
+   
+   
+** DONE 
+   + Animation added
+
 * 22-9-15 <2015-09-22 Tue 13:59>
 * TODO
 ** Read about API design
