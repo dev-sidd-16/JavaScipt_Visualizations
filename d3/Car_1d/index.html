@@ -156,27 +156,23 @@ font-size: 9pt;
 function update(){
 
 	// To define motion of the car
-	if(temp > 50 && motion == 1)
-	{
-	    temp -= 2;
+	if(temp > 50 && motion == 1){
+	    temp = temp - 2;
 	}
-	else
-	{
+	else{
 	    motion = 0;
 	}
 
-	if(temp < y1-20 && motion == 0)
-	{
-	    temp += 2;
+	if(temp < y1-20 && motion == 0){
+	    temp = temp + 2;
 	}
-	else
-	{
+	else{
 	    motion = 1;
 	}	
 
-	if(motion == 0 && temp == 52)
+	if(motion == 0 && temp == 52){
 	    dataset=[];
-	
+	}
 	dataset.push(temp);
 
 	// Updating the attribute of car to match the motion calculated
