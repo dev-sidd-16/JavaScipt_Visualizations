@@ -1,6 +1,10 @@
 #-*- mode: org -*-
 
 
+* 23-9-15 <2015-09-23 Wed 15:12>
+** TODO 
+   - Animate the car movement
+   - Plot the graph, initially x vs t
 * 22-9-15 <2015-09-22 Tue 13:59>
 * TODO
 ** Read about API design
