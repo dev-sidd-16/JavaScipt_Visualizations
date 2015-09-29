@@ -70,7 +70,7 @@ font-size: 9pt;
     var car_x = 50;
     var car_y = h/2;
     var timeInterval = 100;
-    var temp = car_x;
+//    var temp = car_x;
     
     var bgrnd = diag.append("svg:image")
 	    .attr("xlink:href","img/back1.png")
@@ -156,30 +156,30 @@ font-size: 9pt;
 function update(){
 
 	// To define motion of the car
-	if(temp > 50 && motion == 1){
-	    temp = temp - 2;
+	if(car_x > 50 && motion == 1){
+	    car_x = car_x - 2;
 	}
 	else{
 	    motion = 0;
 	}
 
-	if(temp < y1-20 && motion == 0){
-	    temp = temp + 2;
+	if(car_x < y1-20 && motion == 0){
+	    car_x = car_x + 2;
 	}
 	else{
 	    motion = 1;
 	}	
 
-	if(motion == 0 && temp == 52){
+	if(motion == 0 && car_x == 52){
 	    dataset=[];
 	}
-	dataset.push(temp);
+	dataset.push(car_x);
 
 	// Updating the attribute of car to match the motion calculated
 	diag.selectAll(".box")
 	    .transition()
 	    .attr("x", function(){
-		        return temp;
+		        return car_x;
 		});
 
     }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>D3 Test</title>
+<title>Car 1D Motion</title>
 <script type="text/javascript" src="d3/d3.v3.js"></script>
 <style>
 .box {
@@ -37,77 +37,59 @@ font-size: 9pt;
 {
 
     //Drawing The object
-    var w = 1000,
+    var w = 1350,
 	h = 400;
     var svg = d3.select("body")
 	.append("svg")
 	.attr("width",w)
 	.attr("height",h)
-	.style("background-color","#66f");
+	.style("outline", "1px solid red")
+	.style("background-color","#5ec");
 
     var dataset = [];
     var radi = h/10;
-    var x1 = 100, y1 = h/2-radi;
+    var x1 = 100, y1 = w/3-200;
     var x2 = 10, y2 = 5;
-    var motion = 1; // 1: up, 2: down
+    var motion = 1; // 1: forward, 2: backwards
     var diag = svg.append("svg")
-		  .attr("width" , w/2)
-		  .attr("height", h/2)
-		  .attr("y", h/4);
+		  .attr("width" , w/3)
+		  .attr("height", h)
+		  .attr("y", 0);
+    var decor = svg.append("svg")
+		  .attr("width" , w/3)
+		  .attr("height", h)
+		  .attr("x", w/3)
+		  .attr("y", 0);
+    var inp = svg.append("svg")
+		.attr("width", w/3)
+		.attr("heiight", h)
+		.attr("x", 2*(w/3))
+		.attr("y", 0);
     
-    var timeInterval = 150;
-    //var timeInterval = y1-radi;
-    //var circles = diag.append("circle");
-    var circles = diag.append("svg:image")
+
+    var car_x = 50;
+    var car_y = h/2;
+    var timeInterval = 100;
+    var temp = car_x;
+    
+    var bgrnd = diag.append("svg:image")
+	    .attr("xlink:href","img/back1.png")
+	    .attr("x" , 0) 
+	    .attr("y", h/4)
+	    .attr("width", w/3)
+	    .attr("height", h/2)
+	    .attr("class", "back");
+	
+    var car = diag.append("svg:image")
 	    .attr("xlink:href","img/car2.png")
-	    .attr("x" , 2*x1) 
-	    .attr("y", y1-radi)
+	    .attr("x" , car_x) 
+	    .attr("y", car_y)
 	    .attr("width", 100)
 	    .attr("height", 100)
 	    .attr("class", "box");
 	    
-
-    /*circles.attr("cx", x1)
-	.attr("cy", y1)
-	.attr("r", radi)
-	.attr("class", function(d,i){
-		return "box";
-		}) ;
-    */
-    //animating the object
-        //Drawing the plot
-    var vis = svg.append("svg")
-		 .attr("width", w/2)
-		 .attr("height", h/2)
-		 .attr("x", w/2)
-		 .attr("y", h/4);
-    var decor = vis.append("svg:g"),
-	graph = vis.append("svg:g"),
-	path = graph.append("svg:path"),
-        curve = d3.svg.line(),
-	time = 0,
-	i;
-
-    var iter = 0;
-    var temp = y1;
-    dataset.push(temp);
-	
-    var xScale = d3.scale.linear()
-			.domain([0,timeInterval])
-			.range([0,(w/4)]);
-    var yScale = d3.scale.linear()
-			.domain([0, h/2-(2*radi)])
-			.range([0, h/2]);
-
-
-/*    curve.x(function (d,i) {return xScale(i)+time;})
-	 .y(function (d,i) {return yScale(temp);});
-  */ 
-    /*curve.x(0)
-	 .y(0);
-*/
-    // X-Axis
-    decor.append('svg:line')
+   // X-Axis
+    /*decor.append('svg:line')
          .attr('class', 'axis')
          .attr('x1', xScale(0))
          .attr('y1', yScale(h/2-(2*radi)))
@@ -120,19 +102,39 @@ font-size: 9pt;
          .attr('y1', yScale(0))
          .attr('x2', xScale(0))
          .attr('y2', yScale(h/2-(2*radi)));
+*/
+    diag.append('svg:text')
+         .attr('class', 'model-label')
+	 .text('Model/System')
+         .attr('x',(w/6)-30)
+         .attr('y', h/5);
+
+
+    diag.append('svg:text')
+         .attr('class', 'model-label')
+	 .text(Math.ceil(1000/timeInterval)+' fps')
+         .attr('x',(w/6)-30)
+         .attr('y', 4*(h/5));
+
 
     decor.append('svg:text')
-         .attr('class', 'y-label')
-	 .text('H')
-         .attr('x', xScale(0)+10)
-         .attr('y', yScale(h/4-(2*radi)));
+         .attr('class', 'decor-label')
+	 .text('Graph')
+         .attr('x',(w/6)-10)
+         .attr('y', h/5);
 
+    inp.append('svg:text')
+         .attr('class', 'inp-label')
+	 .text('Input')
+         .attr('x',(w/6)-10)
+         .attr('y', h/5);
+
+    /*
     decor.append('svg:text')
          .attr('class', 'x-label')
 	 .text('t')
          .attr('x', xScale(timeInterval)-10)
          .attr('y', yScale(h/2-(2*radi)-10));
-
 
     decor.append("svg:text")
 	 .attr('class','y-val')
@@ -148,65 +150,43 @@ font-size: 9pt;
          .attr("y", h/4-20)
          .attr("text-anchor", "middle");
 
-
-	
-function update(){
-	
-    
-/*	var   x = xScale(time),
-	      y = yScale(temp);
 */
-	if(temp > radi && motion == 1)
-	{
-	    temp -= 2;
+
+
+function update(){
+
+	// To define motion of the car
+	if(temp > 50 && motion == 1){
+	    temp = temp - 2;
 	}
-	else
-	{
+	else{
 	    motion = 0;
 	}
 
-	if(temp < y1 && motion == 0)
-	{
-	    temp += 2;
+	if(temp < y1-20 && motion == 0){
+	    temp = temp + 2;
 	}
-	else
-	{
+	else{
 	    motion = 1;
 	}	
 
-	if(temp == y1 && motion ==1)
-	    iter++;
-
+	if(motion == 0 && temp == 52){
+	    dataset=[];
+	}
 	dataset.push(temp);
-	time = (time+1)%timeInterval;
-	//time++;
-	curve.x(function (d,i) {return xScale(i);})
-	 .y(function (d,i) {return h/2-(yScale(d-temp));});
 
-	path.transition()
-	    .attr('d', curve(dataset));
-
-	decor.selectAll("text").filter('.y-val')
-	     .transition()
-	     .text('Height: '+(-temp));
-
-	decor.selectAll("text").filter('.x-val')
-	     .transition()
-	     .text('Iteration: '+iter);
-
-
-	svg.selectAll(".box")
+	// Updating the attribute of car to match the motion calculated
+	diag.selectAll(".box")
 	    .transition()
-	    .attr("y", function(){
+	    .attr("x", function(){
 		        return temp;
 		});
 
-	 
     }
     
 
-   //Updating the objects y attribute to animate with time
-    setInterval(function(){
+   //Updating the objects x attribute to animate with time
+   setInterval(function(){
 	    update();
 	    }, timeInterval);
 
