@@ -39,6 +39,19 @@ font-size: 9pt;
     //Drawing The object
     var w = 1350,
 	h = 400;
+
+    var diag_w = w/2,
+	diag_h = h;
+    var mdl_w = diag_w*2/3,
+	mdl_h = h/2;
+    var gph_w = diag_w*2/3,
+	gph_h = h/2;
+    var dash_w = diag_w/3,
+	dash_h = h;
+
+    var notes_w = w/2
+	notes_h = h;
+
     var svg = d3.select("body")
 	.append("svg")
 	.attr("width",w)
@@ -47,46 +60,57 @@ font-size: 9pt;
 	.style("background-color","#5ec");
 
     var dataset = [];
-    var radi = h/10;
-    var x1 = 100, y1 = w/3-200;
-    var x2 = 10, y2 = 5;
+    /*var x1 = 100, y1 = w/3-200;
+    var x2 = 10, y2 = 5;*/
+
+    var y1 = diag_w/3-200;
     var motion = 1; // 1: forward, 2: backwards
     var diag = svg.append("svg")
-		  .attr("width" , w/3)
-		  .attr("height", h)
-		  .attr("y", 0);
-    var decor = svg.append("svg")
-		  .attr("width" , w/3)
-		  .attr("height", h)
-		  .attr("x", w/3)
-		  .attr("y", 0);
-    var inp = svg.append("svg")
-		.attr("width", w/3)
-		.attr("heiight", h)
-		.attr("x", 2*(w/3))
-		.attr("y", 0);
-    
+		  .attr("class", "diag")
+		  .attr("width" , diag_w)
+		  .attr("height", diag_h);
 
-    var car_x = 50;
-    var car_y = h/2;
+    var model = diag.append("svg")
+		  .attr("class", "model")
+		  .attr("width" , mdl_w)
+		  .attr("height", mdl_h);
+
+    var dash = diag.append("svg")
+		.attr("class", "dash")
+		.attr("width", dash_w)
+		.attr("heiight", dash_h)
+		.attr("x", mdl_w);
+    var graph = diag.append("svg") 
+		.attr("class", "graph")
+		.attr("width", gph_w)
+		.attr("height", gph_h)
+		.attr("y", mdl_h);
+
+    var notes = svg.append("svg")
+		.attr("class", "notes")
+		.attr("width", notes_w)
+		.attr("height", notes_h)
+		.attr("x", diag_w);
+
+    var boxSize = 100;
+    var car_x = boxSize/2;
+    var car_y = mdl_h-boxSize;
     var timeInterval = 100;
 //    var temp = car_x;
     
-    var bgrnd = diag.append("svg:image")
+    var bgrnd = model.append("svg:image")
 	    .attr("xlink:href","img/back1.png")
-	    .attr("x" , 0) 
-	    .attr("y", h/4)
-	    .attr("width", w/3)
-	    .attr("height", h/2)
+	    .attr("width", mdl_w)
+	    .attr("height", mdl_h)
 	    .attr("class", "back");
 	
-    var car = diag.append("svg:image")
+    var car = model.append("svg:image")
 	    .attr("xlink:href","img/car2.png")
 	    .attr("x" , car_x) 
 	    .attr("y", car_y)
-	    .attr("width", 100)
-	    .attr("height", 100)
-	    .attr("class", "box");
+	    .attr("width", boxSize)
+	    .attr("height", boxSize)
+	    .attr("class", "car");
 	    
    // X-Axis
     /*decor.append('svg:line')
@@ -103,31 +127,37 @@ font-size: 9pt;
          .attr('x2', xScale(0))
          .attr('y2', yScale(h/2-(2*radi)));
 */
-    diag.append('svg:text')
+    model.append('svg:text')
          .attr('class', 'model-label')
 	 .text('Model/System')
-         .attr('x',(w/6)-30)
-         .attr('y', h/5);
+         .attr('x', mdl_w/2 - 30)
+	 .attr('y', mdl_h/5);
 
 
-    diag.append('svg:text')
+    model.append('svg:text')
          .attr('class', 'model-label')
 	 .text(Math.ceil(1000/timeInterval)+' fps')
-         .attr('x',(w/6)-30)
-         .attr('y', 4*(h/5));
+         .attr('x',(mdl_w/2)-30)
+         .attr('y', (mdl_h)-5);
 
 
-    decor.append('svg:text')
-         .attr('class', 'decor-label')
+    graph.append('svg:text')
+         .attr('class', 'graph-label')
 	 .text('Graph')
-         .attr('x',(w/6)-10)
-         .attr('y', h/5);
+         .attr('x',gph_w/2 - 30)
+	 .attr('y', gph_h/5);
 
-    inp.append('svg:text')
-         .attr('class', 'inp-label')
-	 .text('Input')
-         .attr('x',(w/6)-10)
-         .attr('y', h/5);
+    dash.append('svg:text')
+         .attr('class', 'dash-label')
+	 .text('Dashboard')
+         .attr('x',(dash_w/2)-30)
+	 .attr('y', dash_h/5);
+
+    notes.append('svg:text')
+	  .attr('class','notes-label')
+	  .text('Notes')
+	  .attr('x', notes_w/2 - 30)
+	  .attr('y', notes_h/5);
 
     /*
     decor.append('svg:text')
@@ -156,7 +186,7 @@ font-size: 9pt;
 function update(){
 
 	// To define motion of the car
-	if(car_x > 50 && motion == 1){
+	if(car_x > boxSize/2 && motion == 1){
 	    car_x = car_x - 2;
 	}
 	else{
@@ -170,18 +200,21 @@ function update(){
 	    motion = 1;
 	}	
 
-	if(motion == 0 && car_x == 52){
+	if(motion == 0 && car_x == (boxSize/2 + 2)){
 	    dataset=[];
 	}
 	dataset.push(car_x);
 
 	// Updating the attribute of car to match the motion calculated
-	diag.selectAll(".box")
-	    .transition()
+	var c1 = model.select("image")
+		    .filter(".car");
+
+/*
+	c1.transition()
 	    .attr("x", function(){
 		        return car_x;
 		});
-
+*/
     }
     
 
