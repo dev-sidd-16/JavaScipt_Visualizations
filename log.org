@@ -1,6 +1,14 @@
 #-*- mode: org -*-
 
 
+
+* 29-9-15 <2015-09-29 Tue 14:56>
+** TODO
+   - Finalize the layout
+   - Add graph
+   - Complete panels
+* 26-9-15
+* 25-9-15
 * 23-9-15 <2015-09-23 Wed 15:12>
 ** TODO 
    - Animate the car movement
