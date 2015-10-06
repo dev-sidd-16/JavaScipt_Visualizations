@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Car 1D Motion</title>
+<script type="text/javascript" src="d3/d3.v3.js"></script>
+<style>
+.box {
+fill: #f44;
+stroke: black;
+stroke-width: 2px;
+}
+
+path
+{
+stroke: red;
+stroke-width: 2px;
+fill: none;
+}
+
+line
+{
+stroke: black;
+stroke-width: 2px;
+}
+
+text
+{
+font-family: Arial;
+font-size: 9pt;
+}
+
+</style>
+</head>
+<body>
+<script type="text/javascript">
+{
+
+    //Drawing The object
+    var w = 1350,
+	h = 400;
+
+    var diag_w = w/2,
+	diag_h = h;
+    var mdl_w = diag_w*2/3,
+	mdl_h = h/2;
+    var gph_w = diag_w*2/3,
+	gph_h = h/2;
+    var dash_w = diag_w/3,
+	dash_h = h;
+
+    var notes_w = w/2
+	notes_h = h;
+
+    var dataset = [];
+    var boxSize = 100;
+    var margin = boxSize;
+ 
+    var car_x = margin-boxSize/2;
+    var car_y = mdl_h-boxSize;
+    var car_x_max = (mdl_w-margin-(boxSize/2));
+    var timeInterval = 90;
+    var time = 0;
+       
+    var motion = 1; // 1: forward, 2: backwards
+    
+   
+    var svg = d3.select("body")
+	.append("svg")
+	.attr("width",w)
+	.attr("height",h)
+	.style("outline", "1px solid red")
+	.style("background-color","#5ec");
+
+    var diag = svg.append("svg")
+		  .attr("class", "diag")
+		  .attr("width" , diag_w)
+		  .attr("height", diag_h);
+
+    var model = diag.append("svg")
+		  .attr("class", "model")
+		  .attr("width" , mdl_w)
+		  .attr("height", mdl_h);
+
+    var dash = diag.append("svg")
+		.attr("class", "dash")
+		.attr("width", dash_w)
+		.attr("heiight", dash_h)
+		.attr("x", mdl_w);
+    var graph = diag.append("svg") 
+		.attr("class", "graph")
+		.attr("width", gph_w)
+		.attr("height", gph_h)
+		.attr("y", mdl_h);
+
+    var path = graph.append("svg:path");
+
+    var notes = svg.append("svg")
+		.attr("class", "notes")
+		.attr("width", notes_w)
+		.attr("height", notes_h)
+		.attr("x", diag_w);
+
+    var bgrnd = model.append("svg:image")
+	    .attr("xlink:href","img/back1.png")
+	    .attr("width", mdl_w)
+	    .attr("height", mdl_h)
+	    .attr("class", "back");
+	
+    var car = model.append("svg:image")
+	    .attr("xlink:href","img/car2.png")
+	    .attr("x" , car_x) 
+	    .attr("y", car_y)
+	    .attr("width", boxSize)
+	    .attr("height", boxSize)
+	    .attr("class", "car");
+	    
+    // X-Axis
+    graph.append('svg:line')
+         .attr('class', 'x-axis')
+         .attr('x1', boxSize/2)
+         .attr('y1', gph_h-10)
+         .attr('x2', gph_w-(margin/2))
+         .attr('y2', gph_h-10);
+    // Y-Axis
+    graph.append('svg:line')
+         .attr('class', 'y-axis')
+         .attr('x1', boxSize/2)
+         .attr('y1', gph_h-10)
+         .attr('x2', boxSize/2)
+         .attr('y2', 10);
+ 
+   
+    var xScale = d3.scale.linear()
+			 .domain([0, 2*timeInterval])
+			 .range([boxSize/2, gph_w-(margin)-(boxSize/2)]);
+
+    var yScale = d3.scale.linear()
+			 .domain([car_x, car_x_max])
+			 .range([gph_h-10, 10 ]);
+
+    var curve = d3.svg.line()
+            .x(function(d,i) { return xScale(i); })
+            .y(function(d) { return yScale(d); });
+
+    /*var giveMeEmpty = d3.svg.line()
+			    .x(boxSize/2)
+			    .y(gph_h-10);
+
+    function getSmoothInterpolation(data) {
+      return function (d, i, a) {
+        var interpolate = d3.scale.linear()
+                                  .domain([0,1])
+                                  .range([1, data.length + 1]);
+	return function(t) {
+	       var flooredX = Math.floor(interpolate(t));
+	       var weight = interpolate(t) - flooredX;
+	       var interpolatedLine = data.slice(0, flooredX);
+							                                                            
+	       if(flooredX > 0 && flooredX < 31) {
+	                var weightedLineAverage = data[flooredX].y * weight + data[flooredX-1].y * (1-weight);
+	                interpolatedLine.push({"x":interpolate(t)-1, "y":weightedLineAverage});
+	       }
+										                                                                      
+	       return line(interpolatedLine);
+	}
+      }
+    }
+*/
+    model.append('svg:text')
+         .attr('class', 'model-label')
+	 .text('Model/System')
+         .attr('x', mdl_w/2 - 50)
+	 .attr('y', mdl_h/5);
+
+
+    model.append('svg:text')
+         .attr('class', 'model-label')
+	 .text(Math.ceil(1000/timeInterval)+' fps')
+         .attr('x',(mdl_w/2)-30)
+         .attr('y', (mdl_h)-5);
+
+
+    graph.append('svg:text')
+         .attr('class', 'graph-label')
+	 .text('Graph')
+         .attr('x',gph_w/2 - 35)
+	 .attr('y', gph_h/3);
+
+    dash.append('svg:text')
+         .attr('class', 'dash-label')
+	 .text('Dashboard')
+         .attr('x',(dash_w/2)-30)
+	 .attr('y', dash_h/5);
+
+    notes.append('svg:text')
+	  .attr('class','notes-label')
+	  .text('Notes')
+	  .attr('x', notes_w/2 - 30)
+	  .attr('y', notes_h/5);
+
+    /*
+    decor.append('svg:text')
+         .attr('class', 'x-label')
+	 .text('t')
+         .attr('x', xScale(timeInterval)-10)
+         .attr('y', yScale(h/2-(2*radi)-10));
+
+    decor.append("svg:text")
+	 .attr('class','y-val')
+         .text('Height: '+(-temp))
+         .attr("x", w/4)
+         .attr("y", h/4)
+         .attr("text-anchor", "middle");
+
+   decor.append("svg:text")
+	 .attr('class','x-val')
+         .text('Iteration: '+iter)
+         .attr("x", w/4)
+         .attr("y", h/4-20)
+         .attr("text-anchor", "middle");
+
+*/
+
+
+function update(){
+
+	time = (time + 1)%timeInterval;
+	// To define motion of the car
+	if(car_x > boxSize/2 && motion == 1){
+	    car_x = car_x - 2;
+	}
+	else{
+	    motion = 0;
+	}
+
+	if(car_x < car_x_max && motion == 0){
+	    car_x = car_x + 2;
+	}
+	else{
+	    motion = 1;
+	}	
+
+	if(motion == 0 && car_x == (boxSize/2 + 2)){
+	    dataset=[];
+	}
+	dataset.push(car_x);
+
+	path.transition()
+	    .attr("d", curve(dataset));
+	
+	// Updating the attribute of car to match the motion calculated
+	var c1 = model.selectAll("image")
+		    .filter(".car");
+
+
+	c1.transition()
+	    .attr("x", function(){
+		        return car_x;
+		});
+
+    }
+    
+
+   //Updating the objects x attribute to animate with time
+   setInterval(function(){
+	    update();
+	    }, timeInterval);
+
+         
+}
+
+</script>
+</body>
+</html>     

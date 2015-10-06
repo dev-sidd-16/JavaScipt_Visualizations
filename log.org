@@ -8,6 +8,18 @@
    - Understand and create graphs
    - check for y1, x_max first because it will be needed for graph
    - update notes
+     
+
+** DONE
+
+   + Most of the limits(min, max, width, height) parameterized, hence abstracted model. Need a little bit more tweaking for final model.
+   + Graph Added
+   + Dependence of graph on timeInterval(FPS) explored
+   + Works good for upto 12 fps
+   + Increasing the FPS further, decreasing the timeInterval, leads to known error
+   + Should be Fixed? Can be fixed?
+   + Affects rendering too, increasing the FPS, wanted to explore on high resolution displays.
+
 * 2-10-15
 
 ** Work from home
