@@ -1,7 +1,6 @@
 #-*- mode: org -*-
 
 
-
 * 30-9-15 <2015-09-30 Wed 16:20>
 ** TODO
    - Correct the motion animation of model
@@ -23,7 +22,13 @@
    
 <2015-09-29 Tue 18:23> 
 * 26-9-15
+** Work from Home
+   - Animation not working
+   - Read about grouping elements
+   - Elements grouped together
 * 25-9-15
+** Work from Home
+   - Updating Layout
 * 23-9-15 <2015-09-23 Wed 15:12>
 ** TODO 
    - Animate the car movement
@@ -50,6 +55,10 @@
 
 <2015-09-22 Tue 17:36>
 * 18-9-15
+** Work from Home
+   - layout design
+   - read about API design
+   - ways to represent some simple iterative system
 * 16-9-15 <2015-09-16 Wed 15:54>
 ** DONE
    - Meeting with Venkatesh sir
