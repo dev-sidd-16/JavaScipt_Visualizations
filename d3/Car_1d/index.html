@@ -136,12 +136,36 @@ font-size: 9pt;
    
     var xScale = d3.scale.linear()
 			 .domain([0, 2*timeInterval])
-			 .range([boxSize/2, gph_w-(margin/2)]);
+			 .range([boxSize/2, gph_w-(margin)-(boxSize/2)]);
 
     var yScale = d3.scale.linear()
 			 .domain([car_x, car_x_max])
 			 .range([gph_h-10, 10 ]);
 
+
+    var giveMeEmpty = d3.svg.line()
+			    .x(boxSize/2)
+			    .y(gph_h-10);
+
+    function getSmoothInterpolation(data) {
+      return function (d, i, a) {
+        var interpolate = d3.scale.linear()
+                                  .domain([0,1])
+                                  .range([1, data.length + 1]);
+	return function(t) {
+	       var flooredX = Math.floor(interpolate(t));
+	       var weight = interpolate(t) - flooredX;
+	       var interpolatedLine = data.slice(0, flooredX);
+							                                                            
+	       if(flooredX > 0 && flooredX < 31) {
+	                var weightedLineAverage = data[flooredX].y * weight + data[flooredX-1].y * (1-weight);
+	                interpolatedLine.push({"x":interpolate(t)-1, "y":weightedLineAverage});
+	       }
+										                                                                      
+	       return line(interpolatedLine);
+	}
+      }
+    }
 
     model.append('svg:text')
          .attr('class', 'model-label')
@@ -222,10 +246,15 @@ function update(){
 	}
 	dataset.push(car_x);
 
-	
+
+	var line = d3.svg.line()
+	            .x(function(d,i) { return xScale(i); })
+	            .y(function(d) { return yScale(d); });
+
+
 	
 	path.transition()
-	    .attr('d', curve(dataset));
+	    .attr("d", line(dataset));
 	
 	// Updating the attribute of car to match the motion calculated
 	var c1 = model.selectAll("image")
