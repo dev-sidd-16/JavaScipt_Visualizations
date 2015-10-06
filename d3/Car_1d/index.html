@@ -60,8 +60,9 @@ font-size: 9pt;
 	.style("background-color","#5ec");
 
     var dataset = [];
-
-    var y1 = (diag_w/3);
+    var boxSize = 100;
+    var margin = boxSize;
+    
     var motion = 1; // 1: forward, 2: backwards
     var diag = svg.append("svg")
 		  .attr("class", "diag")
@@ -90,10 +91,11 @@ font-size: 9pt;
 		.attr("height", notes_h)
 		.attr("x", diag_w);
 
-    var boxSize = 100;
-    var car_x = boxSize/2;
+    var car_x = margin-boxSize/2;
     var car_y = mdl_h-boxSize;
+    var car_x_max = (mdl_w-margin-(boxSize/2));
     var timeInterval = 100;
+    var time = 0;
     
     var bgrnd = model.append("svg:image")
 	    .attr("xlink:href","img/back1.png")
@@ -182,6 +184,7 @@ font-size: 9pt;
 
 function update(){
 
+	time = time + 1;
 	// To define motion of the car
 	if(car_x > boxSize/2 && motion == 1){
 	    car_x = car_x - 2;
@@ -190,7 +193,7 @@ function update(){
 	    motion = 0;
 	}
 
-	if(car_x < y1-20 && motion == 0){
+	if(car_x < car_x_max && motion == 0){
 	    car_x = car_x + 2;
 	}
 	else{
