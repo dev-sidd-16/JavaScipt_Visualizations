@@ -21,7 +21,7 @@ fill: none;
 line
 {
 stroke: black;
-stroke-width: 5px;
+stroke-width: 2px;
 }
 
 text
@@ -52,6 +52,19 @@ font-size: 9pt;
     var notes_w = w/2
 	notes_h = h;
 
+    var dataset = [];
+    var boxSize = 100;
+    var margin = boxSize;
+ 
+    var car_x = margin-boxSize/2;
+    var car_y = mdl_h-boxSize;
+    var car_x_max = (mdl_w-margin-(boxSize/2));
+    var timeInterval = 100;
+    var time = 0;
+       
+    var motion = 1; // 1: forward, 2: backwards
+    
+   
     var svg = d3.select("body")
 	.append("svg")
 	.attr("width",w)
@@ -59,11 +72,6 @@ font-size: 9pt;
 	.style("outline", "1px solid red")
 	.style("background-color","#5ec");
 
-    var dataset = [];
-    var boxSize = 100;
-    var margin = boxSize;
-    
-    var motion = 1; // 1: forward, 2: backwards
     var diag = svg.append("svg")
 		  .attr("class", "diag")
 		  .attr("width" , diag_w)
@@ -85,18 +93,17 @@ font-size: 9pt;
 		.attr("height", gph_h)
 		.attr("y", mdl_h);
 
+    var path = graph.append("svg:path"),
+	curve = d3.svg.line();
+
+
+
     var notes = svg.append("svg")
 		.attr("class", "notes")
 		.attr("width", notes_w)
 		.attr("height", notes_h)
 		.attr("x", diag_w);
 
-    var car_x = margin-boxSize/2;
-    var car_y = mdl_h-boxSize;
-    var car_x_max = (mdl_w-margin-(boxSize/2));
-    var timeInterval = 100;
-    var time = 0;
-    
     var bgrnd = model.append("svg:image")
 	    .attr("xlink:href","img/back1.png")
 	    .attr("width", mdl_w)
@@ -111,21 +118,31 @@ font-size: 9pt;
 	    .attr("height", boxSize)
 	    .attr("class", "car");
 	    
-   // X-Axis
-    /*decor.append('svg:line')
-         .attr('class', 'axis')
-         .attr('x1', xScale(0))
-         .attr('y1', yScale(h/2-(2*radi)))
-         .attr('x2', xScale(timeInterval))
-         .attr('y2', yScale(h/2-(2*radi)));
+    // X-Axis
+    graph.append('svg:line')
+         .attr('class', 'x-axis')
+         .attr('x1', boxSize/2)
+         .attr('y1', gph_h-10)
+         .attr('x2', gph_w-(margin/2))
+         .attr('y2', gph_h-10);
     // Y-Axis
-    decor.append('svg:line')
-         .attr('class', 'axis')
-         .attr('x1', xScale(0))
-         .attr('y1', yScale(0))
-         .attr('x2', xScale(0))
-         .attr('y2', yScale(h/2-(2*radi)));
-*/
+    graph.append('svg:line')
+         .attr('class', 'y-axis')
+         .attr('x1', boxSize/2)
+         .attr('y1', gph_h-10)
+         .attr('x2', boxSize/2)
+         .attr('y2', 10);
+ 
+   
+    var xScale = d3.scale.linear()
+			 .domain([0, 2*timeInterval])
+			 .range([boxSize/2, gph_w-(margin/2)]);
+
+    var yScale = d3.scale.linear()
+			 .domain([car_x, car_x_max])
+			 .range([gph_h-10, 10 ]);
+
+
     model.append('svg:text')
          .attr('class', 'model-label')
 	 .text('Model/System')
@@ -144,7 +161,7 @@ font-size: 9pt;
          .attr('class', 'graph-label')
 	 .text('Graph')
          .attr('x',gph_w/2 - 35)
-	 .attr('y', gph_h/5);
+	 .attr('y', gph_h/3);
 
     dash.append('svg:text')
          .attr('class', 'dash-label')
@@ -200,7 +217,7 @@ function update(){
 	    motion = 1;
 	}	
 
-	if(motion == 0 && car_x == (boxSize/2 + 2)){
+	if(motion == 0 && car_x == (boxSize/2 )){
 	    dataset=[];
 	}
 	dataset.push(car_x);
