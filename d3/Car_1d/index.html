@@ -201,7 +201,7 @@ font-size: 9pt;
 
 function update(){
 
-	time = time + 1;
+	time = (time + 1)%timeInterval;
 	// To define motion of the car
 	if(car_x > boxSize/2 && motion == 1){
 	    car_x = car_x - 2;
@@ -222,6 +222,11 @@ function update(){
 	}
 	dataset.push(car_x);
 
+	
+	
+	path.transition()
+	    .attr('d', curve(dataset));
+	
 	// Updating the attribute of car to match the motion calculated
 	var c1 = model.selectAll("image")
 		    .filter(".car");
