@@ -1,6 +1,31 @@
 #-*- mode: org -*-
 
 
+* 6-10-15 <2015-10-06 Tue 15:16>
+
+** TODO
+
+   - Understand and create graphs
+   - check for y1, x_max first because it will be needed for graph
+   - update notes
+* 2-10-15
+
+** Work from home
+   - IMP Vars list
+     + diag_w, diag_h, mdl_w, mdl_h, gph_w, gph_h, dash_w, dash_h
+     + dataset
+     + y1 : car_x_max + 20 given as diag_w/3 which should be mdl_w-(boxSize/2)
+     + motion : forward(1), backward(0)
+     + boxSize
+     + car_x, car_y
+     + timeInterval
+   - known issues
+     + timeInterval affects rendering
+     + becomes slow after a time, probably due to storage
+     + debugging
+   - more clarity in using graphs needed
+   - need to update notes
+
 * 30-9-15 <2015-09-30 Wed 16:20>
 ** TODO
    - Correct the motion animation of model
