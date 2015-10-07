@@ -6,6 +6,16 @@
    - Add ticks
    - Add Dashboard, view all the parameters on it for now, later can change too
    - Add Notes
+     
+** DONE 
+   + Dashboard added
+   + Equations of motion implemented
+   + Graphs automated for constant as well as uniform velocit/accelerated motion
+   + Some issues with the understanding of motion, need to be solved
+   + Ticks and notes need to be added(beautification)
+   + Look examples from PHET Colorado website!!
+
+<2015-10-07 Wed 17:48>
 * 6-10-15 <2015-10-06 Tue 15:16>
 
 ** TODO
