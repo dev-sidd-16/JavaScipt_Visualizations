@@ -63,7 +63,7 @@ font-size: 9pt;
     var time = 0;
        
     var motion = 1; // 1: forward, -1: backwards
-    var u_init = 0;
+    var u_init = 0.05;
     var u = motion * u_init;
     var a = 0;
     var v,s;
@@ -170,41 +170,54 @@ font-size: 9pt;
          .attr('x',gph_w/2 - 35)
 	 .attr('y', gph_h/3);
 
-/*    graph.append('svg:text')
+    graph.append('svg:text')
 	 .attr('class', 'x-label')
 	 .text('time')
-	 .attr('x', gph_w-50)
-         .attr('y', gph_h-100);
-*/
+	 .attr('x', gph_w-(margin/2)-10)
+         .attr('y', gph_h-20);
+
+    graph.append('svg:text')
+	 .attr('class', 'y-label')
+	 .text('car_x')
+	 .attr('x', boxSize/2+5)
+         .attr('y', 20);
+
+
     dash.append('svg:text')
          .attr('class', 'dash-label')
 	 .text('Dashboard')
          .attr('x',(dash_w/2)-30)
-	 .attr('y', dash_h/6);
+	 .attr('y', dash_h/12);
 
     dash.append('svg:text')
 	.attr('class', 'carx')
-	.text('car_x: '+ car_x)
+	.text('car_x(distance): '+ car_x)
 	.attr('x',(dash_w/2)-30)
-	.attr('y', dash_h/3);
+	.attr('y', dash_h/6);
 
     
     dash.append('svg:text')
 	.attr('class', 'tim')
 	.text('time: '+ time)
 	.attr('x',(dash_w/2)-30)
-	.attr('y', dash_h/2);
+	.attr('y', dash_h/3);
 
 
     dash.append('svg:text')
 	.attr('class', 'motion')
 	.text('motion: '+ motion)
 	.attr('x',(dash_w/2)-30)
-	.attr('y', (dash_h*2)/3);
+	.attr('y', (dash_h/2));
 
     dash.append('svg:text')
 	.attr('class', 'dis')
-	.text('s: '+ s)
+	.text('displacement: '+ s)
+	.attr('x',(dash_w/2)-30)
+	.attr('y', (dash_h*2)/3);
+
+    dash.append('svg:text')
+	.attr('class', 'vel')
+	.text('velocity: '+ v)
 	.attr('x',(dash_w/2)-30)
 	.attr('y', (dash_h*5)/6);
 
@@ -277,7 +290,7 @@ function update(){
 	
 	dash.selectAll("text").filter('.carx')
 	    .transition()
-	    .text('car_x: '+ car_x);
+	    .text('car_x(distance): '+ car_x);
 
 	dash.selectAll("text").filter('.tim')
 	    .transition()
@@ -289,7 +302,12 @@ function update(){
 
 	dash.selectAll("text").filter('.dis')
 	    .transition()
-	    .text('s: '+ s);
+	    .text('displacement: '+ s);
+
+
+	dash.selectAll("text").filter('.vel')
+	    .transition()
+	    .text('velocity: '+ v);
 
 
 
