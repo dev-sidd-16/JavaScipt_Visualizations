@@ -149,7 +149,30 @@ font-size: 9pt;
             .x(function(d,i) { return xScale(i); })
             .y(function(d) { return yScale(d); });
 
- 
+    /*var giveMeEmpty = d3.svg.line()
+			    .x(boxSize/2)
+			    .y(gph_h-10);
+
+    function getSmoothInterpolation(data) {
+      return function (d, i, a) {
+        var interpolate = d3.scale.linear()
+                                  .domain([0,1])
+                                  .range([1, data.length + 1]);
+	return function(t) {
+	       var flooredX = Math.floor(interpolate(t));
+	       var weight = interpolate(t) - flooredX;
+	       var interpolatedLine = data.slice(0, flooredX);
+							                                                            
+	       if(flooredX > 0 && flooredX < 31) {
+	                var weightedLineAverage = data[flooredX].y * weight + data[flooredX-1].y * (1-weight);
+	                interpolatedLine.push({"x":interpolate(t)-1, "y":weightedLineAverage});
+	       }
+										                                                                      
+	       return line(interpolatedLine);
+	}
+      }
+    }
+*/
     model.append('svg:text')
          .attr('class', 'model-label')
 	 .text('Model/System')
@@ -170,12 +193,6 @@ font-size: 9pt;
          .attr('x',gph_w/2 - 35)
 	 .attr('y', gph_h/3);
 
-/*    graph.append('svg:text')
-	 .attr('class', 'x-label')
-	 .text('time')
-	 .attr('x', gph_w-50)
-         .attr('y', gph_h-100);
-*/
     dash.append('svg:text')
          .attr('class', 'dash-label')
 	 .text('Dashboard')
@@ -270,11 +287,59 @@ function update(){
 	    dataset = [];
 	}
 
+	    /*
+	if(car_x > boxSize/2 && motion == 1){
+	    
+	    v = u+(a*time);	    
+	    car_x = car_x + ((v+u)/2)*time ;
+	    /*
+	    if(velocity == 0)
+	    {
+		car_x = car_x - constant;
+	    }
+	    else
+	    {
+		car_x = car_x - (velocity*time);
+	    }
+	}
+	else{
+	    motion = -1;
+	    u = motion*u_init;
+	}
+
+	if(car_x < car_x_max && motion == 1){
+	    v = u+(a*time);	    
+	    car_x = car_x + ((v+u)/2)*time ;
+	    /*
+	    if(velocity == 0)
+	    {
+		car_x = car_x + constant;
+	    }
+	    else
+	    {
+		car_x = car_x + (velocity*time);
+	    }
+	}
+	else{
+	    motion = 1;
+	    u = motion*u_init;
+
+	}	
+
+	if(motion == 0 && car_x == (boxSize/2 + 2)){
+	    dataset=[];
+	}
+
+	*/
 	dataset.push(car_x);
 
 	path.transition()
 	    .attr("d", curve(dataset));
 	
+	// Updating the attribute of car to match the motion calculated
+	var c1 = model.selectAll("image")
+		    .filter(".car");
+
 	dash.selectAll("text").filter('.carx')
 	    .transition()
 	    .text('car_x: '+ car_x);
@@ -293,9 +358,6 @@ function update(){
 
 
 
-	// Updating the attribute of car to match the motion calculated
-	var c1 = model.selectAll("image")
-		    .filter(".car");
 	c1.transition()
 	    .attr("x", function(){
 		        return car_x;
