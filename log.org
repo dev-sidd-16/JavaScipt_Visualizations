@@ -8,6 +8,13 @@
    - Review the work done
    - Make future plans
    - Think about final deliverables
+   
+
+** DONE
+
+   + Card_1D complete with scrollable notes
+   + Difference between contant displacemet and variable displacement sorted out.
+
 * 9-10-15
 
 ** Added updates in 2D car motion
