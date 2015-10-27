@@ -1,6 +1,16 @@
 #-*- mode: org -*-
 
 
+* 27-10-15
+
+** TODO
+
+   - Review the work done
+   - Make future plans
+   - Think about final deliverables
+* 9-10-15
+
+** Added updates in 2D car motion
 * 7-10-15 <2015-10-07 Wed 14:14>
 ** TODO
    - Add ticks
