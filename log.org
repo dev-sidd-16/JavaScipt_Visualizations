@@ -14,6 +14,11 @@
 
    + Card_1D complete with scrollable notes
    + Difference between contant displacemet and variable displacement sorted out.
+   + Spring mass system, from tomorrow
+   + Projectile 2-D motion
+   + Fractals...
+   + A tutrial from start till end
+
 
 * 9-10-15
 
