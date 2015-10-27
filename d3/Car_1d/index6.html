@@ -44,10 +44,10 @@ font-size: 9pt;
 	diag_h = h;
     var mdl_w = diag_w*2/3,
 	mdl_h = h/2;
-    var gph_w = diag_w*2/3,
+    var gph_w = diag_w,
 	gph_h = h/2;
     var dash_w = diag_w/3,
-	dash_h = h;
+	dash_h = diag_h/2;
 
     var notes_w = w/2
 	notes_h = h;
@@ -63,10 +63,10 @@ font-size: 9pt;
     var time = 0;
        
     var motion = 1; // 1: forward, -1: backwards
-    var u_init = 0.0;
+    var u_init = 0.05;
     var u = motion * u_init;
     var a = 0;
-    var v,s;
+    var v,s = 0.01;
     var constant = 2;
 	
 
@@ -91,7 +91,7 @@ font-size: 9pt;
     var dash = diag.append("svg")
 		.attr("class", "dash")
 		.attr("width", dash_w)
-		.attr("heiight", dash_h)
+		.attr("height", dash_h)
 		.attr("x", mdl_w);
     var graph = diag.append("svg") 
 		.attr("class", "graph")
@@ -121,25 +121,40 @@ font-size: 9pt;
 	    .attr("height", boxSize)
 	    .attr("class", "car");
 	    
-    // X-Axis
+    // X-Axis - 1
     graph.append('svg:line')
-         .attr('class', 'x-axis')
+         .attr('class', 'x-axis1')
          .attr('x1', boxSize/2)
          .attr('y1', gph_h-10)
-         .attr('x2', gph_w-(margin/2))
+         .attr('x2', (gph_w/2)+(0))
          .attr('y2', gph_h-10);
-    // Y-Axis
+    // Y-Axis - 1
     graph.append('svg:line')
-         .attr('class', 'y-axis')
+         .attr('class', 'y-axis1')
          .attr('x1', boxSize/2)
          .attr('y1', gph_h-10)
          .attr('x2', boxSize/2)
          .attr('y2', 10);
  
-   
+   // X-Axis - 2
+    graph.append('svg:line')
+         .attr('class', 'x-axis2')
+         .attr('x1', gph_w/2+10)
+         .attr('y1', gph_h-10)
+         .attr('x2', (gph_w))
+         .attr('y2', gph_h-10);
+    // Y-Axis - 2
+    graph.append('svg:line')
+         .attr('class', 'y-axis2')
+         .attr('x1', gph_w/2+10)
+         .attr('y1', gph_h-10)
+         .attr('x2', gph_w/2+10)
+         .attr('y2', 10);
+ 
+
     var xScale = d3.scale.linear()
 			 .domain([0, 2*timeInterval])
-			 .range([boxSize/2, gph_w-(margin)-(boxSize/2)]);
+			 .range([boxSize/2, (gph_w/2)-(margin)-(boxSize/2)]);
 
     var yScale = d3.scale.linear()
 			 .domain([0, car_x_max])
@@ -166,9 +181,9 @@ font-size: 9pt;
 
     graph.append('svg:text')
          .attr('class', 'graph-label')
-	 .text('Graph')
-         .attr('x',gph_w/2 - 35)
-	 .attr('y', gph_h/3);
+	 .text('Graphs')
+         .attr('x', (gph_w/2)-60)
+	 .attr('y', gph_h/8);
 
     graph.append('svg:text')
 	 .attr('class', 'x-label')
@@ -180,7 +195,7 @@ font-size: 9pt;
 	 .attr('class', 'y-label')
 	 .text('car_x')
 	 .attr('x', boxSize/2+5)
-         .attr('y', 20);
+         .attr('y', gph_h/5);
 
 
     dash.append('svg:text')
@@ -191,35 +206,35 @@ font-size: 9pt;
 
     dash.append('svg:text')
 	.attr('class', 'carx')
-	.text('car_x(distance): '+ car_x)
-	.attr('x',(dash_w/2)-30)
+	.text('car_x(distance): '+ car_x.toFixed(3))
+	.attr('x',(dash_w/2)-60)
 	.attr('y', dash_h/6);
 
     
     dash.append('svg:text')
 	.attr('class', 'tim')
 	.text('time: '+ time)
-	.attr('x',(dash_w/2)-30)
-	.attr('y', dash_h/3);
+	.attr('x',(dash_w/2)-20)
+	.attr('y', dash_h/4);
 
 
     dash.append('svg:text')
 	.attr('class', 'motion')
 	.text('motion: '+ motion)
-	.attr('x',(dash_w/2)-30)
-	.attr('y', (dash_h/2));
+	.attr('x',(dash_w/2)-25)
+	.attr('y', (dash_h/3));
 
     dash.append('svg:text')
 	.attr('class', 'dis')
-	.text('displacement: '+ s)
-	.attr('x',(dash_w/2)-30)
-	.attr('y', (dash_h*2)/3);
+	.text('displacement: '+ s.toFixed(3))
+	.attr('x',(dash_w/2)-45)
+	.attr('y', (dash_h*5)/12);
 
     dash.append('svg:text')
 	.attr('class', 'vel')
 	.text('velocity: '+ v)
 	.attr('x',(dash_w/2)-30)
-	.attr('y', (dash_h*5)/6);
+	.attr('y', (dash_h)/2);
 
 
 
@@ -261,7 +276,7 @@ function update(){
 	v = u+(a*time);
 	if (u_init != 0)
 	{
-	    s = ((v+u)/2)*time ;
+	   s = ( ((v+u)/2)*time + (motion*constant)) ;
 	}
 	else
 	{
@@ -290,7 +305,7 @@ function update(){
 	
 	dash.selectAll("text").filter('.carx')
 	    .transition()
-	    .text('car_x(distance): '+ car_x);
+	    .text('car_x(distance): '+ car_x.toFixed(3));
 
 	dash.selectAll("text").filter('.tim')
 	    .transition()
@@ -302,7 +317,7 @@ function update(){
 
 	dash.selectAll("text").filter('.dis')
 	    .transition()
-	    .text('displacement: '+ s);
+	    .text('displacement: '+ s.toFixed(3));
 
 
 	dash.selectAll("text").filter('.vel')
