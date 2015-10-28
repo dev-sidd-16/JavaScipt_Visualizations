@@ -9,7 +9,17 @@
    - Define variables
    - Map the motion
 
-** 
+** DONE
+
+   + Initiated Spring mass system
+   + Basic Ideas how ot model the system developed
+   + Layout finalized
+   + Added gradient and small updates to final car_1D motion
+   + Checked out PHET Colorado simulations
+   + Timeline and deliverables roughly decided
+
+ <2015-10-28 Wed 17:58>
+
 * 27-10-15
 
 ** TODO

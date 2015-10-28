@@ -143,7 +143,7 @@ font-size: 9pt;
 		.attr("width", notes_w)
 		.attr("height", notes_h)
 		.attr("x", diag_w+(notes_w/5));
-
+/*
     var bgrnd = model.append("svg:image")
 	    .attr("xlink:href","img/back1.png")
 	    .attr("width", mdl_w)
@@ -187,6 +187,7 @@ font-size: 9pt;
             .y(function(d) { return yScale(d); });
 
  
+*/
     model.append('svg:text')
          .attr('class', 'model-label')
 	 .text('Model/System')
@@ -194,7 +195,7 @@ font-size: 9pt;
 	 .attr('y', mdl_h/5);
 
 
-    model.append('svg:text')
+/*    model.append('svg:text')
          .attr('class', 'model-label')
 	 .text(Math.ceil(1000/timeInterval)+' fps')
          .attr('x',(mdl_w/2)-30)
@@ -219,13 +220,13 @@ font-size: 9pt;
 	 .attr('x', boxSize/2+5)
          .attr('y', 20);
 
-
+*/
     dash.append('svg:text')
          .attr('class', 'dash-label')
 	 .text('Dashboard')
          .attr('x',(dash_w/2)-30)
 	 .attr('y', dash_h/12);
-
+/*
     dash.append('svg:text')
 	.attr('class', 'carx')
 	.text('car_x(distance): '+ car_x)
@@ -257,8 +258,7 @@ font-size: 9pt;
 	.text('velocity: '+ v)
 	.attr('x',(dash_w/2)-30)
 	.attr('y', (dash_h*5)/6);
-
-
+*/
     notes.append('xhtml:body')
 	  .attr("class", "nlabels")
 	  .style({width : notes_w/1.5 + "px", height : notes_h-10 + "px", font: 20 + "px 'Times New Roman' "})
@@ -289,7 +289,7 @@ font-size: 9pt;
 
 */
 
-
+/*
 function update(){
 
 	time = dataset.length;
@@ -358,7 +358,7 @@ function update(){
 
     }
     
-
+*/
    //Updating the objects x attribute to animate with time
    setInterval(function(){
 	    update();
