@@ -24,9 +24,15 @@ stroke: black;
 stroke-width: 2px;
 }
 
+.background
+{
+outline: 1px solid red;
+background: linear-gradient(to top, rgba(0,0,255,0) rgba(0,0,255,1))
+}
+
 .nlabels
 {
-    color: blue;
+    color: darkgreen;
     overflow: scroll;
 }
 text
@@ -83,9 +89,33 @@ font-size: 9pt;
 	.append("svg")
 	.attr("width",w)
 	.attr("height",h)
-	.style("outline", "1px solid red")
-	.style("background-color","#5ec");
+	.attr("class","background");
+	//.style("outline", "1px solid red")
+	//.style("background-color","linear-gradient (to top, rgba(0,0,255,0) rgba(0,0,255,1)");
+    var gradient = svg.append("svg:defs")
+	  .append("svg:linearGradient")
+	  .attr("id", "gradient")
+	  .attr("x1", "0%")
+	  .attr("y1", "100%")
+	  .attr("x2", "100%")
+	  .attr("y2", "100%")
+	  .attr("spreadMethod", "pad");
 
+    gradient.append("svg:stop")
+	    .attr("offset", "0%")
+	    .attr("stop-color", "#00f")
+	    .attr("stop-opacity", 1);
+
+    gradient.append("svg:stop")
+	    .attr("offset", "100%")
+	    .attr("stop-color", "#fff")
+	    .attr("stop-opacity", 1);
+
+    svg.append("svg:rect")
+	    .attr("width", w)
+	    .attr("height", h)
+	    .style("fill", "url(#gradient)");
+    
     var diag = svg.append("svg")
 		  .attr("class", "diag")
 		  .attr("width" , diag_w)
