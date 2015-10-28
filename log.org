@@ -1,6 +1,15 @@
 #-*- mode: org -*-
 
 
+* 28-10-15 <2015-10-28 Wed 15:14>
+
+** TODO
+
+   - Look for wways to represent spring mass system
+   - Define variables
+   - Map the motion
+
+** 
 * 27-10-15
 
 ** TODO
@@ -13,11 +22,11 @@
 ** DONE
 
    + Card_1D complete with scrollable notes
-   + Difference between contant displacemet and variable displacement sorted out.
+   + Difference between constant displacemet and variable displacement sorted out.
    + Spring mass system, from tomorrow
    + Projectile 2-D motion
    + Fractals...
-   + A tutrial from start till end
+   + A tutorial from start till end
 
 
 * 9-10-15
