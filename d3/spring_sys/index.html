@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Car 1D Motion</title>
+<title>Spring-Mass System</title>
 <script type="text/javascript" src="d3/d3.v3.js"></script>
 <style>
 .box {
@@ -27,7 +27,6 @@ stroke-width: 2px;
 .background
 {
 outline: 1px solid red;
-background: linear-gradient(to top, rgba(0,0,255,0) rgba(0,0,255,1))
 }
 
 .nlabels
@@ -90,8 +89,7 @@ font-size: 9pt;
 	.attr("width",w)
 	.attr("height",h)
 	.attr("class","background");
-	//.style("outline", "1px solid red")
-	//.style("background-color","linear-gradient (to top, rgba(0,0,255,0) rgba(0,0,255,1)");
+    
     var gradient = svg.append("svg:defs")
 	  .append("svg:linearGradient")
 	  .attr("id", "gradient")
