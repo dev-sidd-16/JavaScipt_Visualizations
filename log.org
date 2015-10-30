@@ -16,8 +16,11 @@
    + Further things to do
      * Spring-Mass System
      * Pendulum
-   + Merge traffic light with the API
+     * Merge traffic light with the API
+   + Fixed some bugs in 1D motion
+   + Spring mass system started
 
+<2015-10-30 Fri 18:20>
 
 * 28-10-15 <2015-10-28 Wed 15:14>
 
