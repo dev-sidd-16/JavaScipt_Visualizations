@@ -31,7 +31,7 @@ outline: 1px solid red;
 
 .nlabels
 {
-    color: darkgreen;
+    color: maroon;
     overflow: scroll;
 }
 text
@@ -51,8 +51,8 @@ font-size: 9pt;
     var w = 1350,
 	h = 400;
 
-    var text_02 = "Notes :: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare nunc vel eros dictum efficitur. Vestibulum ut lacus interdum nibh efficitur mollis. Sed pulvinar risus risus, id feugiat massa pretium nec. Sed tortor arcu, vehicula et semper ut, pulvinar id nisi. Praesent eget porta dolor. Etiam vel malesuada nisl. Morbi et eleifend augue. Cras non hendrerit augue. Nunc id nulla consectetur, vulputate nibh sed, pulvinar nulla. Pellentesque eget vehicula lacus, ac gravida nibh.	Sed fermentum tempus sapien sed elementum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum eleifend fermentum massa ut cursus. Vivamus luctus ipsum posuere elit cursus, pretium lobortis lectus posuere. Maecenas a eros velit. Quisque sollicitudin orci vel magna placerat, lacinia cursus magna vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In quis euismod risus, ac ornare magna. Quisque felis mauris, tristique sit amet tempor eu, elementum pellentesque sapien. Nulla imperdiet interdum leo non interdum. Duis maximus sem vitae purus sodales suscipit. Donec eu facilisis enim, eu condimentum odio. Fusce velit leo, accumsan ut efficitur at, venenatis id libero.	Phasellus condimentum ipsum eget nisl porttitor porttitor. Maecenas hendrerit neque nec aliquam convallis. Aenean egestas, nisl non aliquam tempor, diam neque varius justo, eu tristique arcu risus et magna. Nullam eget quam purus. Donec non sapien tempus, mattis enim ac, luctus erat. Fusce vel tincidunt ex. Quisque ornare, quam non porta semper, mi massa commodo tellus, gravida imperdiet arcu nulla sit amet magna. Mauris et orci urna. Nulla varius convallis vestibulum. Sed feugiat molestie odio eu pharetra. Duis auctor nec mi ut posuere. Integer porttitor pharetra odio, eu porta sapien pulvinar et. Donec eget malesuada nisi.	Donec sed ultrices dui. Etiam faucibus sit amet leo at lobortis. In tristique odio ut tempus tempus. Aliquam quis vehicula ligula, fringilla efficitur lacus. Fusce justo tortor, iaculis in aliquet quis, mattis quis tellus. Cras varius scelerisque sodales. Phasellus vel libero consectetur, tincidunt turpis ut, viverra purus. In mollis ex eu orci finibus rutrum. Nam nec condimentum leo. Vivamus nec vulputate lectus, vel ultrices sem. Fusce vel magna at ex vulputate tempor. Morbi consectetur velit sit amet arcu vestibulum convallis. Nulla tellus lorem, efficitur in ultrices id, feugiat convallis leo. Nullam ac nulla dui. Nulla facilisi. Etiam vitae neque malesuada, hendrerit ipsum sed, suscipit leo.Maecenas eleifend rhoncus suscipit. Nulla nisl nulla, placerat ut ipsum eget, congue facilisis augue. Mauris tempus luctus justo vel ornare. Quisque mollis eleifend lorem, eget commodo sem pulvinar a. Nunc sodales lectus et urna ultrices, at aliquet nunc volutpat. Nulla facilisi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur eget lobortis nunc. Etiam aliquet interdum luctus. Phasellus mi massa, mattis egestas viverra ac, faucibus quis turpis. Nulla suscipit sit amet arcu nec ultrices. Sed nec vehicula metus, id facilisis mauris. ";
-    
+   
+    var text_02 = "Notes"
     var diag_w = w/2,
 	diag_h = h;
     var mdl_w = diag_w*2/3,
@@ -66,7 +66,7 @@ font-size: 9pt;
 	notes_h = h;
 
     var dataset = [];
-    var boxSize = 100;
+    var boxSize = mdl_h/2;
     var margin = boxSize;
  
     var car_x = margin-boxSize/2;
@@ -106,7 +106,7 @@ font-size: 9pt;
 
     gradient.append("svg:stop")
 	    .attr("offset", "100%")
-	    .attr("stop-color", "#fff")
+	    .attr("stop-color", "#0f0")
 	    .attr("stop-opacity", 1);
 
     svg.append("svg:rect")
