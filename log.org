@@ -7,8 +7,16 @@
    - Start Spring mass system..
    - Try spring modeling
    - see how it works..
+   - Send the 1D_Object repo to travula@vlabs.ac.in
+     
+** DONE
 
-** DONE 
+   + Meeting with Sir.
+   + 1D Car motion shown
+   + Further things to do
+     * Spring-Mass System
+     * Pendulum
+   + Merge traffic light with the API
 
 
 * 28-10-15 <2015-10-28 Wed 15:14>
