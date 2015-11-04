@@ -55,12 +55,12 @@ font-size: 9pt;
     var text_02 = "Notes"
     var diag_w = w/2,
 	diag_h = h;
-    var mdl_w = diag_w*2/3,
-	mdl_h = h/2;
-    var gph_w = diag_w*2/3,
+    var mdl_w = diag_w/2,
+	mdl_h = h;
+    var gph_w = diag_w/2,
 	gph_h = h/2;
-    var dash_w = diag_w/3,
-	dash_h = h;
+    var dash_w = diag_w/2,
+	dash_h = h/2;
 
     var notes_w = w/2
 	notes_h = h;
@@ -128,13 +128,14 @@ font-size: 9pt;
     var dash = diag.append("svg")
 		.attr("class", "dash")
 		.attr("width", dash_w)
-		.attr("heiight", dash_h)
+		.attr("height", dash_h)
 		.attr("x", mdl_w);
     var graph = diag.append("svg") 
 		.attr("class", "graph")
 		.attr("width", gph_w)
 		.attr("height", gph_h)
-		.attr("y", mdl_h);
+		.attr("x", mdl_w)
+		.attr("y", dash_h);
 
     var path = graph.append("svg:path");
 
@@ -201,13 +202,13 @@ font-size: 9pt;
          .attr('x',(mdl_w/2)-30)
          .attr('y', (mdl_h)-5);
 
-
+*/
     graph.append('svg:text')
          .attr('class', 'graph-label')
 	 .text('Graph')
          .attr('x',gph_w/2 - 35)
 	 .attr('y', gph_h/3);
-
+/*
     graph.append('svg:text')
 	 .attr('class', 'x-label')
 	 .text('time')
