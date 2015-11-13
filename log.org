@@ -1,6 +1,9 @@
 #-*- mode: org -*-
 
 
+* 13-11-15 <2015-11-13 Fri 17:49>
+** DONE
+   - Checked out PHET Colorado's simulations dependencies
 * 10-11-15 <2015-11-10 Tue 15:01>
 
 ** TODO
