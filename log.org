@@ -4,6 +4,8 @@
 * 13-11-15 <2015-11-13 Fri 17:49>
 ** DONE
    - Checked out PHET Colorado's simulations dependencies
+* 11-11-15 <2015-11-13 Fri 17:52>
+** Holiday: Work from home
 * 10-11-15 <2015-11-10 Tue 15:01>
 
 ** TODO
