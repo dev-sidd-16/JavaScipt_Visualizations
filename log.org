@@ -1,6 +1,17 @@
 #-*- mode: org -*-
 
 
+* 20-11-15, 24-11-15
+
+** Prepared Report
+
+** Report submitted
+
+* 17-11-15, 18-11-15
+
+** Reviewed PHET Simulations
+
+** Found Libraries
 * 13-11-15 <2015-11-13 Fri 17:49>
 ** DONE
    - Checked out PHET Colorado's simulations dependencies
